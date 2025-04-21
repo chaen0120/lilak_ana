@@ -1,0 +1,64 @@
+BeamParticle    14O
+LightEjectile   proton
+#################################################################################################
+TexAT2/
+    mapmmFileName       {lilak_common}/mapchantomm.txt
+    mapsiFileName       {lilak_common}/mapchantosi_CRIB.txt
+    mapX6FileName       {lilak_common}/mapchantoX6_CRIB.txt
+    mapCsIFileName      {lilak_common}/mapchantoCsI_CRIB.txt
+    mapX6dimFileName    {lilak_common}/mapdimtoX6_CRIB.txt
+CalibrationParameter/
+    fFSiJ_CalPar        {lilak_common}/fSiJ_calpar_after.txt
+    fFCsI_CalPar        {lilak_common}/fCsI_calpar_after.txt
+    fX6J_CalPar         {lilak_common}/X6J_calpar.txt
+    fX6O_CalPar         {lilak_common}/X6O_calpar.txt
+
+#################################################################################################
+TexAT2/pulseFile/
+    MMCenterSideA0      {lilak_common}/pulseReference_MMCenterSideA0.root
+    MMCenterSideA1      {lilak_common}/pulseReference_MMCenterSideA1.root
+    MMCenterSideA2      {lilak_common}/pulseReference_MMCenterSideA2.root
+    MMCenterSideA3      {lilak_common}/pulseReference_MMCenterSideA3.root
+    MMCenterCenterA0    {lilak_common}/pulseReference_MMCenterCenterA0.root
+    MMCenterCenterA1    {lilak_common}/pulseReference_MMCenterCenterA1.root
+    MMCenterCenterA2    {lilak_common}/pulseReference_MMCenterCenterA2.root
+    MMCenterCenterA3    {lilak_common}/pulseReference_MMCenterCenterA3.root
+    MMLeftSide          {lilak_common}/pulseReference_MMLeftSide.root
+    MMLeftCenter        {lilak_common}/pulseReference_MMLeftCenter.root
+    MMRightSide         {lilak_common}/pulseReference_MMRightSide.root
+    MMRightCenter       {lilak_common}/pulseReference_MMRightCenter.root
+    fSiJunction         {lilak_common}/pulseReference_fSiJunction.root
+    fSiOhmic            {lilak_common}/pulseReference_fSiOhmic.root
+    fCsI                {lilak_common}/pulseReference_fCsI.root
+    X6Ohmic             {lilak_common}/pulseReference_X6Ohmic.root
+    X6Junction          {lilak_common}/pulseReference_X6Junction.root
+    CsICT               {lilak_common}/pulseReference_CsICT.root
+
+# 10 parameters for each channel type used to set parameters of LKChannelArray
+# dynamicRange threshold tbStart tbMax  iterMax tbStepCut tbStartCut, scaleTbStep thresholdOneStep numTbAcendingCut
+TexAT2/
+    analysis/
+        MMCenterSideA0      4096  50  1  350  15  0.01  330  0.2  2  5
+        MMCenterSideA1      {TexAT2/analysis/MMCenterSideA0}
+        MMCenterSideA2      {TexAT2/analysis/MMCenterSideA0}
+        MMCenterSideA3      {TexAT2/analysis/MMCenterSideA0}
+        MMCenterCenterA0    {TexAT2/analysis/MMCenterSideA0}
+        MMCenterCenterA1    {TexAT2/analysis/MMCenterSideA0}
+        MMCenterCenterA2    {TexAT2/analysis/MMCenterSideA0}
+        MMCenterCenterA3    {TexAT2/analysis/MMCenterSideA0}
+        MMLeftSide          {TexAT2/analysis/MMCenterSideA0}
+        MMLeftCenter        {TexAT2/analysis/MMCenterSideA0}
+        MMRightSide         {TexAT2/analysis/MMCenterSideA0}
+        MMRightCenter       {TexAT2/analysis/MMCenterSideA0}
+        fSiJunction         {TexAT2/analysis/MMCenterSideA0}
+        fSiOhmic            {TexAT2/analysis/MMCenterSideA0}
+        fCsI                {TexAT2/analysis/MMCenterSideA0}
+        X6Ohmic             {TexAT2/analysis/MMCenterSideA0}
+        X6Junction          {TexAT2/analysis/MMCenterSideA0}
+        CsICT               {TexAT2/analysis/MMCenterSideA0}
+    inverted/
+        fSiJunction         true
+        fCsI                true
+        X6Junction          true
+
+#################################################################################################

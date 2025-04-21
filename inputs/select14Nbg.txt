@@ -1,0 +1,11 @@
+0 Event 79872, Run 1008, Split 0: Ecm = 1.41, Z = 305.54: D
+1 Event 3480, Run 1002, Split 0: Ecm = 1.98, Z = 355.30: B
+2 Event 57816, Run 1006, Split 0: Ecm = 2.21, Z = 289.07: D
+3 Event 79680, Run 1008, Split 0: Ecm = 2.62, Z = 201.53: D
+4 Event 115075, Run 1010, Split 0: Ecm = 2.79, Z = 219.87: E
+5 Event 79541, Run 1008, Split 0: Ecm = 3.17, Z = 221.55: E
+6 Event 35581, Run 1004, Split 0: Ecm = 3.34, Z = 246.43: E
+7 Event 118924, Run 1011, Split 0: Ecm = 3.45, Z = 179.64: A
+8 Event 9528, Run 1002, Split 0: Ecm = 3.55, Z = 190.31: E
+9 Event 28933, Run 1004, Split 0: Ecm = 2.05, Z = 347.15: B
+10 Event 22199, Run 1003, Split 0: Ecm = 4.14, Z = 331.84: B
