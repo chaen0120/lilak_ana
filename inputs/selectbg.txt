@@ -325,3 +325,13 @@
 81 Event 845386, Run 913, Split 15: Ecm = 5.89, Z = 251.38: D
 82 Event 263090, Run 894, Split 3: Ecm = 3.62, Z = 250.21: E
 83 Event 25234, Run 929, Split 2: Ecm = 4.62, Z = 250.11: E
+0 Event 1298095, Run 927, Split 13: Ecm = 3.47, Z = 249.61: E
+1 Event 312738, Run 909, Split 8: Ecm = 3.48, Z = 244.76: D
+2 Event 46180, Run 918, Split 4: Ecm = 3.21, Z = 235.78: E
+3 Event 1173564, Run 899, Split 7: Ecm = 3.24, Z = 222.26: E
+4 Event 1729012, Run 902, Split 0: Ecm = 3.49, Z = 216.68: D
+5 Event 45887, Run 893, Split 4: Ecm = 3.47, Z = 209.00: E
+6 Event 54712, Run 921, Split 4: Ecm = 3.50, Z = 207.56: E
+7 Event 84438, Run 908, Split 8: Ecm = 3.48, Z = 192.86: E
+8 Event 1319567, Run 927, Split 15: Ecm = 3.46, Z = 191.27: E
+9 Event 185461, Run 930, Split 5: Ecm = 3.48, Z = 176.27: E

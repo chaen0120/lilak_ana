@@ -105,7 +105,7 @@ void macro_14O(bool isGoodEvents = false, bool isSubtractBG = true)
     }
 
     gStyle->SetOptStat(0);
-    TCanvas *cvs_xs = new TCanvas("cvs_xs","cvs_xs",1500,1200);
+    TCanvas *cvs_xs = new TCanvas("cvs_xs","cvs_xs",1500,1000);
     cvs_xs->Divide(2,2);
     cvs_xs->cd(4); g_weightedxsAll->Draw("APL");
     cvs_xs->cd(3); g_xsAll->Draw("APL"); g_sysErr->Draw("P");
@@ -130,7 +130,7 @@ void macro_14O(bool isGoodEvents = false, bool isSubtractBG = true)
     leg->Draw();
     SaveBatch(cvs_xs);
 
-    TCanvas *cvs_yield = new TCanvas("cvs_yield","cvs_yield",1200,1600);
+    TCanvas *cvs_yield = new TCanvas("cvs_yield","cvs_yield",800,1200);
     cvs_yield->Divide(1,2);
     cvs_yield->cd(1);
     hisMainAll->Draw("HIST");

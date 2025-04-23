@@ -116,6 +116,23 @@ void draw_cs(bool sorryKubono = true)
 	gSys->SetFillColor(kBlue);
 	gSys->SetFillStyle(3004);
 
+	//vector<Double_t> expcmE_MeV1, expcs_mb1, expcmE_err1, expcs_err1;
+	//readData4("totxs/totxs_14Oap1.txt", expcmE_MeV1, expcs_mb1, expcmE_err1, expcs_err1);
+	//TGraphErrors * gExp1 = new TGraphErrors(expcmE_MeV1.size(),expcmE_MeV1.data(),expcs_mb1.data(),expcmE_err1.data(),expcs_err1.data());
+	//gExp1->SetMarkerStyle(20);
+	//gExp1->SetMarkerSize(0.8);
+	//gExp1->SetMarkerColor(kYellow+1);
+	//gExp1->SetLineColor(kYellow+1);
+	//gExp1->SetFillColor(kYellow+1);
+	//gExp1->SetFillStyle(3004);
+
+	//vector<Double_t> syserrcmE_MeV1, syserrcs_mb1, syserrcmE_err1, syserrcs_err1;
+	//readData4("totxs/totxs_14Oap1_sysErr.txt", syserrcmE_MeV1, syserrcs_mb1, syserrcmE_err1, syserrcs_err1);
+	//TGraphErrors * gSys1 = new TGraphErrors(syserrcmE_MeV1.size(),syserrcmE_MeV1.data(),syserrcs_mb1.data(),syserrcmE_err1.data(),syserrcs_err1.data());
+	//gSys1->SetLineColor(kGreen+1);
+	//gSys1->SetFillColor(kGreen+1);
+	//gSys1->SetFillStyle(3004);
+
 
 	TGaxis *axis[2];
 	for (int i=0; i<2; i++)
@@ -182,6 +199,10 @@ void draw_cs(bool sorryKubono = true)
 		gExp->Draw("P");
 		gSys->Draw("e3");
 		gSys->Draw("P");
+		//gExp1->Draw("e3");
+		//gExp1->Draw("P");
+		//gSys1->Draw("e3");
+		//gSys1->Draw("P");
 		axis[i]->Draw();
 		if (i == 1) { gPad->SetLogy(); led->Draw(); }
 	}

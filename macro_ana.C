@@ -16,6 +16,7 @@ TH2D *his_EdvsTE[40], *his_EdvsSE[40];
 
 void macro_ana(TString type = "14Oap")
 {
+    gStyle->SetPalette(kRainbow);
     cout << minEcm << " - " << maxEcm << ", bin size = " << binSize << " -> nBins = " << nBins << endl;
 
     beam = type[2];
@@ -104,11 +105,11 @@ void macro_ana(TString type = "14Oap")
         his_SEvsSA[i] = new TH2D(Form("his_SEvsSA_%d", i), Form("his_SEvsSA_%d;Si Ang;Si Ecm ", detmap[i]), 180, 0, 180, 200, 0, 20);
         his_SEvsSL[i] = new TH2D(Form("his_SEvsSL_%d", i), Form("his_SEvsSL_%d;Si Len;Si Ecm ", detmap[i]), 300, 0, 600, 200, 0, 20);
         his_EdvsTA[i] = new TH2D(Form("his_EdvsTA_%d", i), Form("his_EdvsTA_%d;TPC Ang;Edet", detmap[i]), 180, 0, 180, 100, 0, 30);
-        his_EdvsTZ[i] = new TH2D(Form("his_EdvsTZ_%d", i), Form("his_EdvsTZ_%d;TPC Z;Edet", detmap[i]), 100, 0, 600, 100, 0, 30);
-        his_EdvsSA[i] = new TH2D(Form("his_EdvsSA_%d", i), Form("his_EdvsSA_%d;Si Ang;Edet", detmap[i]), 180, 0, 180, 100, 0, 30);
-        his_EdvsSZ[i] = new TH2D(Form("his_EdvsSZ_%d", i), Form("his_EdvsSZ_%d;Si Z;Edet", detmap[i]), 100, 0, 600, 100, 0, 30);
-        his_EdvsTE[i] = new TH2D(Form("his_EdvsTE_%d", i), Form("his_EdvsTE_%d;TPC Ecm;Edet", detmap[i]), 200, 0, 20, 200, 0, 20);
-        his_EdvsSE[i] = new TH2D(Form("his_EdvsSE_%d", i), Form("his_EdvsSE_%d;Si Ecm;Edet", detmap[i]), 200, 0, 20, 200, 0, 20);
+        his_EdvsTZ[i] = new TH2D(Form("his_EdvsTZ_%d", i), Form("his_EdvsTZ_%d;TPC Z;Edet", detmap[i]),   100, 0, 600, 100, 0, 30);
+        his_EdvsSA[i] = new TH2D(Form("his_EdvsSA_%d", i), Form("his_EdvsSA_%d;Si Ang;Edet", detmap[i]),  180, 0, 180, 100, 0, 30);
+        his_EdvsSZ[i] = new TH2D(Form("his_EdvsSZ_%d", i), Form("his_EdvsSZ_%d;Si Z;Edet", detmap[i]),    100, 0, 600, 100, 0, 30);
+        his_EdvsTE[i] = new TH2D(Form("his_EdvsTE_%d", i), Form("his_EdvsTE_%d;TPC Ecm;Edet", detmap[i]), 200, 0,  20, 200, 0, 20);
+        his_EdvsSE[i] = new TH2D(Form("his_EdvsSE_%d", i), Form("his_EdvsSE_%d;Si Ecm;Edet", detmap[i]),  200, 0,  20, 200, 0, 20);
     }
     TH2D *his_forw[5];
     for (int i = 0; i < 5; i++) his_forw[i] = new TH2D(Form("his_forw%d", drawmap[i]), Form("his_forw%d;CsIE;SiE", drawmap[i]), 100, 0, 20, 100, 0, 20);
@@ -197,8 +198,8 @@ void macro_ana(TString type = "14Oap")
 
         //if (TPCEcm<10) cout << ender->GetRun() << "\t" << ender->GetSplit() << "\t" << eventNo << "\t" << TPCEcm << endl;
         
-        //auto EcmFill = ZtoE(TPCvert.Z());
-        auto EcmFill = TPCEcm;
+        auto EcmFill = ZtoE(TPCvert.Z());
+        //auto EcmFill = TPCEcm;
         auto check = IsGoodEvent(runNo, splitNo, eventNo);
         if (check == 'Z' && EcmFill<=3.5) cout << "?" << "\t" << runNo << "\t" << splitNo << "\t" << eventNo << "\t" << EcmFill << "\t" << TPCvert.Z() << endl;
         if (check != 'A' && check != 'E') continue; // good or short
@@ -739,13 +740,13 @@ void SetOthers()
     {
         if (!Is14N)
         {
-            fZE[i] = new TF1(Form("fZE_%d",i), "0.22222839*([0]+[1]*(x-10.413)+[2]*(x-10.413)^2+[3]*(x-10.413)^3+[4]*(x-10.413)^4)", 0, 375);
-            fEZ[i] = new TF1(Form("fEZ_%d",i), "[0]+[1]*(4.4998751*x)+[2]*(4.4998751*x)^2+[3]*(4.4998751*x)^3+[4]*(4.4998751*x)^4 - 10.413", 0, 9);
+            fZE[i] = new TF1(Form("fZE_%d",i), "0.22222839*([0]+[1]*(x+10.413-24)+[2]*(x+10.413-24)^2+[3]*(x+10.413-24)^3+[4]*(x+10.413-24)^4)", 0, 375);
+            fEZ[i] = new TF1(Form("fEZ_%d",i), "[0]+[1]*(4.4998751*x)+[2]*(4.4998751*x)^2+[3]*(4.4998751*x)^3+[4]*(4.4998751*x)^4 - 10.413+24", 0, 9);
         }
         else
         {
-            fZE[i] = new TF1(Form("fZE_%d",i), "0.22229664*([0]+[1]*(x-2.86574)+[2]*(x-2.86574)^2+[3]*(x-2.86574)^3+[4]*(x-2.86574)^4)", 0, 375);
-            fEZ[i] = new TF1(Form("fEZ_%d",i), "[0]+[1]*(4.4984935*x)+[2]*(4.4984935*x)^2+[3]*(4.4984935*x)^3+[4]*(4.4984935*x)^4 - 2.86574", 0, 9);
+            fZE[i] = new TF1(Form("fZE_%d",i), "0.22229664*([0]+[1]*(x+2.86574-24)+[2]*(x+2.86574-24)^2+[3]*(x+2.86574-24)^3+[4]*(x+2.86574-24)^4)", 0, 375);
+            fEZ[i] = new TF1(Form("fEZ_%d",i), "[0]+[1]*(4.4984935*x)+[2]*(4.4984935*x)^2+[3]*(4.4984935*x)^3+[4]*(4.4984935*x)^4 - 2.86574+24", 0, 9);
         }
     }
     if (!Is14N)
@@ -769,11 +770,11 @@ void SetOthers()
         fEZ[1]->SetParameters(291.262, -17.2617, 3.73715, -0.691054, 0.050257);
         fEZ[2]->SetParameters(283.774, -9.15657, 0.322428, -0.0294115, 0.000814409);
         fEZ[3]->SetParameters(279.257, -7.09869, -0.0334126, -0.00193614, 1.98111e-05);
-        OcutZ[0] = 0      ;
-        OcutZ[1] = 157.068-2.86574;
-        OcutZ[2] = 229.519-2.86574;
-        OcutZ[3] = 261.217-2.86574;
-        OcutZ[4] = 291    -2.86574;
+        OcutZ[0] = 24      ;
+        OcutZ[1] = 157.068-2.86574+24;
+        OcutZ[2] = 229.519-2.86574+24;
+        OcutZ[3] = 261.217-2.86574+24;
+        OcutZ[4] = 291    -2.86574+24;
         OcutE[0] = 0.5    *0.22229664;
         OcutE[1] = 1.59147*0.22229664;
         OcutE[2] = 3.57331*0.22229664;

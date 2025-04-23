@@ -43,7 +43,7 @@ void FindZtoE(TH2D *his, int thres_entry, int thres_sigma);
 TF1 *fTrackingEff = nullptr;
 TF1 *fZE[4], *fEZ[4];
 double OcutE[5] = {0.5*0.22222839, 1.51387*0.22222839, 3.80064*0.22222839, 10.5704*0.22222839, 40*0.22222839};
-double OcutZ[5] = {0, 262.011-10.413, 305.331-10.413, 339.753-10.413, 367-10.413};
+double OcutZ[5] = {24, 262.011-10.413+24, 305.331-10.413+24, 339.753-10.413+24, 367-10.413+24};
 double ZtoE(double Z);
 double EtoZ(double E);
 

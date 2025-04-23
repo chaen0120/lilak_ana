@@ -1,6 +1,7 @@
 double Mass[4] = { 1.00782, 4.00260, 14.00860, 14.00307 };
 
 /* 14O
+*/
 const int nF = 4;
 const int nP = 4; //5
 double maxE = 40;
@@ -8,9 +9,7 @@ double OcutEmin[nF] = { 0.5, 1.5, 3.6, 10.0 };
 double OcutEmax[nF] = { OcutEmin[1]+0.1, OcutEmin[2]+0.5, OcutEmin[3]+1, maxE };
 double OcutDmax[nF] = { 270, 310, 348, 367};
 double OcutDmin[nF] = { 0, OcutDmax[0]-10, OcutDmax[1]-10, OcutDmax[2]-10};
-*/
 /* 14N
-*/
 const int nF = 4;
 const int nP = 4; //5
 double maxE = 30;
@@ -18,6 +17,7 @@ double OcutEmin[nF] = { 0.5, 1.5, 3.3, 10.0 };
 double OcutEmax[nF] = { OcutEmin[1]+0.1, OcutEmin[2]+0.5, OcutEmin[3]+1, maxE };
 double OcutDmax[nF] = { 160, 230, 270, 291};
 double OcutDmin[nF] = { 0, OcutDmax[0]-10, OcutDmax[1]-10, OcutDmax[2]-10};
+*/
 /*alpha
 const int nF = 4;
 const int nP = 4; //5
@@ -221,7 +221,7 @@ void fit()
         cout << endl;
         if (iF==nF-1) cout << " };" << endl;
     }
-    cout << EtoD(29.717) << endl;
+    cout << EtoD(39.112) << endl;
 }
     //auto *cvs2 = new TCanvas("TargetThickness","TargetThickness",1500,1000);
     //gDif->SetMarkerColor(kBlue);
