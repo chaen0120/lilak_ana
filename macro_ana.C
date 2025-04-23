@@ -21,7 +21,7 @@ void macro_ana(TString type = "14Oap")
 
     beam = type[2];
     reac = type[4];
-    if (beam == 'N' || type(type.Length()-1) == 'N') { Is14N = true; cout << "14N RUN" << endl; }
+    if (beam == 'N' /*|| type(type.Length()-1) == 'N'*/) { Is14N = true; cout << "14N RUN" << endl; }
 
     if (type(3,3) == "CO2")
     {
@@ -199,6 +199,7 @@ void macro_ana(TString type = "14Oap")
         //if (TPCEcm<10) cout << ender->GetRun() << "\t" << ender->GetSplit() << "\t" << eventNo << "\t" << TPCEcm << endl;
         
         auto EcmFill = ZtoE(TPCvert.Z());
+        if (Is14N) EcmFill = ZtoE(TPCvert.Z() - 60);
         //auto EcmFill = TPCEcm;
         auto check = IsGoodEvent(runNo, splitNo, eventNo);
         if (check == 'Z' && EcmFill<=3.5) cout << "?" << "\t" << runNo << "\t" << splitNo << "\t" << eventNo << "\t" << EcmFill << "\t" << TPCvert.Z() << endl;

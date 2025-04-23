@@ -79,7 +79,6 @@ LILAK Library Loaded
 
 Processing macro_ana.C("14Oap_14N")...
 0 - 10, bin size = 0.1 -> nBins = 100
-14N RUN
 cut/cutEA_14Oap.txt
 cut/cutEZ_14Oap.txt
 bad LT: 711
@@ -89,17 +88,11 @@ LILAK Library Loaded
 
 Processing macro_ana.C("14OCO2p_14N")...
 0 - 10, bin size = 0.1 -> nBins = 100
-14N RUN
 cut/cutEA_14Oap.txt
 cut/cutEZ_14Oap.txt
 bad LT: 711
 bad LT: 817
 bad LT: 928
-?	1003	0	18720	3.00356	194.266
-?	1003	0	25316	2.39544	217.859
-?	1006	0	53904	1.62905	245.891
-?	1007	0	70199	2.54101	212.328
-?	1009	0	100631	2.24378	223.547
    ------------------------------------------------------------------
   | Welcome to ROOT 6.34.08                        https://root.cern |
   | (c) 1995-2024, The ROOT Team; conception: R. Brun, F. Rademakers |
