@@ -3,6 +3,7 @@ const double maxEcm = 10;    // [MeV]
 const int nBins = 100;
 const double binSize = (maxEcm - minEcm) / nBins; // [MeV]
 
+bool IsVertexEcm = true;
 bool IsBackground = false;
 bool Is14N = false;
 
@@ -92,7 +93,9 @@ bool GetManualEvent(uint64_t key, double &dEdx, double &pEcm, double &Alab, TVec
 
 map<int, double> resolution;
 void GetResolution();
-double Straggling(double Ep, double dist) { return 0.000628384*sqrt(dist)/(1-0.253199/Ep); }
+TF1 *fOStr1, *fOStr2, *fOStr;
+double OStraggling(double Z) { return fOStr->Eval(Z); }
+double PStraggling(double Ep, double dist) { return 0.000628384*sqrt(dist)/(1-0.253199/Ep); }
 double CalculateEpError(double energy, int det, int strip);
 double CalculateThetaError(double theta, TVector3 sihit, TVector3 errSihit, TVector3 vertex);
 double CalculateEcmError(double energy, double theta, double errEne, double errThe);

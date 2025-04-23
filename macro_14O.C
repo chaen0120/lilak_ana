@@ -356,7 +356,7 @@ TGraphErrors *GetAverage(TGraphErrors **gXS, TH1D *hisYield, TH1D *hisErr)
             nValidDet++;
         }
         if (nValidDet == 0) continue;
-        sumEError = sqrt(hisErr->GetBinContent(iPoint+1)) / hisYield->GetBinContent(iPoint+1);
+        sumEError = sqrt(hisErr->GetBinContent(iPoint+1) / hisYield->GetBinContent(iPoint+1));
         if (isnan(sumEError) || isinf(sumEError)) sumEError = 0;
 
         gA->SetPoint(gA->GetN(), gXS[0]->GetPointX(iPoint), sumXS / nValidDet);

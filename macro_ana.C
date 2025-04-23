@@ -21,7 +21,7 @@ void macro_ana(TString type = "14Oap")
 
     beam = type[2];
     reac = type[4];
-    if (beam == 'N' /*|| type(type.Length()-1) == 'N'*/) { Is14N = true; cout << "14N RUN" << endl; }
+    if (beam == 'N') { Is14N = true; cout << "14N RUN" << endl; }
 
     if (type(3,3) == "CO2")
     {
@@ -198,9 +198,12 @@ void macro_ana(TString type = "14Oap")
 
         //if (TPCEcm<10) cout << ender->GetRun() << "\t" << ender->GetSplit() << "\t" << eventNo << "\t" << TPCEcm << endl;
         
-        auto EcmFill = ZtoE(TPCvert.Z());
-        if (Is14N) EcmFill = ZtoE(TPCvert.Z() - 60);
-        //auto EcmFill = TPCEcm;
+        auto EcmFill = TPCEcm;
+        if (IsVertexEcm)
+        {
+            EcmFill = ZtoE(TPCvert.Z());
+            if (type(type.Length()-1) == 'N') EcmFill = ZtoE(TPCvert.Z() - 60);
+        }
         auto check = IsGoodEvent(runNo, splitNo, eventNo);
         if (check == 'Z' && EcmFill<=3.5) cout << "?" << "\t" << runNo << "\t" << splitNo << "\t" << eventNo << "\t" << EcmFill << "\t" << TPCvert.Z() << endl;
         if (check != 'A' && check != 'E') continue; // good or short
@@ -233,11 +236,12 @@ void macro_ana(TString type = "14Oap")
 
         //auto errEp = CalculateEpError(Edet, firedDet, firedStrip);
         auto Elab = ender->GetpElab();
-        auto straggling = Straggling(Elab, TPCLen);
+        auto straggling = PStraggling(Elab, TPCLen);
         auto resolution = CalculateEpError(Edet, firedDet, firedStrip);
         auto errEp = sqrt(pow(resolution,2)+pow(straggling,2));
         auto errTh = CalculateThetaError(TPCAlab, SiPos, ender->GetSiHitError(), TPCvert);
         auto errEcm = CalculateEcmError(Edet, TPCAlab, errEp, errTh);
+        if (IsVertexEcm) errEcm = OStraggling(TPCvert.Z());
         //cout << TPCEcm << "\t" << straggling << "\t" << resolution << "\t" << errTh << "\t" << errEcm << endl;
         his_EError->Fill(EcmFill, errEcm*errEcm);
         his_weightedEError->Fill(EcmFill, 1/errEcm/errEcm);
@@ -729,6 +733,12 @@ void SetOthers()
     Ecm_14N_Oaa->SetMarkerColor(kOrange + 1);
     Ecm_14N_Oaa->SetLineColor(kOrange + 1);
     Ecm_14N_Oaa->SetLineWidth(2);
+
+    fOStr1 = new TF1("f1","[10]*pol7(0)+pol1(8)",24,375);
+    fOStr2 = new TF1("f2","[10]*pol7(0)+pol1(8)",24,375);
+    fOStr1->SetParameters( 8.98833, -0.00603845, -0.000362325, 4.78713e-06, -3.47837e-08, 1.36886e-10, -2.76809e-13, 2.24699e-16, 3.17755, -0.0110498, 0.608662);
+    fOStr2->SetParameters( 8.98833, -0.00603845, -0.000362325, 4.78713e-06, -3.47837e-08, 1.36886e-10, -2.76809e-13, 2.24699e-16, 3.33173, -0.00564637, 0.692816);
+    fOStr = new TF1("fOStr", [=](double *x, double*) {return (fOStr2->Eval(x[0]) - fOStr1->Eval(x[0]))*4.00260/(4.00260+14.00860);}, 24,375,0);
 
     //fZE = new TF1("fZE","pol7",0,375);
     //fZE->SetLineColor(kViolet+3);
