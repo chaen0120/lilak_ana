@@ -1,0 +1,31 @@
+ana/
+results/
+*/*bkp*
+
+#log files created from build/run
+log/*
+*.log
+
+#temporary directories
+temp*/
+
+#figures
+png/
+*.pdf
+*.png
+*.eps
+*.jpg
+*.jpeg
+
+#trash
+trash
+
+#python
+__pycache__
+
+#mac
+.AppleDouble
+.DS_Store
+
+#documetation directory(doxygen)
+doc
