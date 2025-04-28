@@ -177,6 +177,8 @@ void draw_cs(bool sorryKubono = true)
 		if (g==gAZURE) g->GetYaxis()->SetRangeUser(0.0001, 1000);
 		else 		   g->GetYaxis()->SetRangeUser(0.0001,  3);
 	}
+	//TCanvas * c1 = new TCanvas("c1","c1",600,500);
+	//c1->cd();
 	TCanvas * c1 = new TCanvas("c1","c1",1200,500);
 	c1->Divide(2,1);
 	for (int i=0; i<2; i++)
