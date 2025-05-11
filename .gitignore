@@ -1,7 +1,7 @@
 ana/
 results/
 */*bkp*
-totxs/totxt
+bkp/
 
 #log files created from build/run
 log/*
