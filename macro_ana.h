@@ -1,6 +1,6 @@
 const double minEcm = 0;     // [MeV]
 const double maxEcm = 10;    // [MeV]
-const int nBins = 50;
+const int nBins = 100;
 const double binSize = (maxEcm - minEcm) / nBins; // [MeV]
 
 bool IsVertexEcm = true;

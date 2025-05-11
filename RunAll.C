@@ -93,7 +93,7 @@ void p0p1()
         dsXS[iE] = sqrt(dsxs0[iE]*dsxs0[iE] + dsxs1[iE]*dsxs1[iE]) / 2;
         sXS[iE] = XS[iE] - dXS[iE] - dsXS[iE];
 
-        cout << Ecm[iE] << "\t& " << XS[iE] << "\t& " << stat << "\t& " << dsXS[iE] << "\t& " << syst << "\t\\\\ \\hline" << endl;
+        cout << Form("%.2f",Ecm[iE]) << "\t& " << Form("%.2e",XS[iE]) << "\t& " << Form("%.2e",stat) << "\t& " << Form("%.2e",dsXS[iE]) << "\t& " << Form("%.2e",syst) << "\t\\\\ \\hline" << endl;
     }
 
     ofstream fout;
@@ -164,6 +164,9 @@ void DrawAngleVertex()
     gAngle->SetFillColor(kRed);
     gAngle->SetFillStyle(3004);
     gAngle->SetLineWidth(2);
+    gAngle->GetXaxis()->SetLimits(0.8, 3.6);
+    gAngle->GetXaxis()->SetTitle("E_{cm} [MeV]");
+    gAngle->GetYaxis()->SetTitle("Total Cross Section [mb]");
     gVertex->SetMarkerStyle(20);
     gVertex->SetMarkerSize(0.8);
     gVertex->SetMarkerColor(kBlue);
@@ -171,10 +174,26 @@ void DrawAngleVertex()
     gVertex->SetFillColor(kBlue); gVertex->SetFillStyle(3005);
     gVertex->SetLineWidth(2);
 
-    gAngle->Draw("AP");
+    gVertex->GetXaxis()->SetLabelSize(0.04);
+    gVertex->GetXaxis()->SetTitleSize(0.05);
+    gVertex->GetXaxis()->SetTitleOffset(0.8);
+    gVertex->GetXaxis()->CenterTitle();
+    gVertex->GetYaxis()->SetLabelSize(0.04);
+    gVertex->GetYaxis()->SetTitleSize(0.05);
+    gVertex->GetYaxis()->SetTitleOffset(0.9);
+    gVertex->GetYaxis()->CenterTitle();
+
     //gAngle->Draw("3 same");
-    gVertex->Draw("P same");
+    //gVertex->Draw("AP");
+    gAngle->Draw("AP");
     //gVertex->Draw("3 same");
+
+    //auto *leg = new TLegend(0.15, 0.6, 0.3, 0.88);
+    //leg->AddEntry(gAngle, "Angle", "p");
+    //leg->AddEntry(gVertex, "Vertex", "p");
+    //leg->Draw();
+    //gPad->SetLogy();
+    gPad->SetGrid();
 }
 
 void DrawSFactor()
