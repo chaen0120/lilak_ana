@@ -116,7 +116,7 @@ void DrawAngleVertex()
     vector<double> ea, xsa, dea, dxsa;
     while (fin >> e >> xs >> de >> dxs)
     {
-        if (e < 0.8 || e > 3.6) continue;
+        if (e < 0.5 || e > 3.6) continue;
         ea.push_back(e);
         xsa.push_back(xs);
         dea.push_back(de);
@@ -127,7 +127,7 @@ void DrawAngleVertex()
     vector<double> dsxsa;
     while (fin >> e >> xs >> de >> dxs)
     {
-        if (e < 0.8 || e > 3.6) continue;
+        if (e < 0.5 || e > 3.6) continue;
         dsxsa.push_back(dxs);
     }
     fin.close();
@@ -135,7 +135,7 @@ void DrawAngleVertex()
     vector<double> ev, xsv, dev, dxsv;
     while (fin >> e >> xs >> de >> dxs)
     {
-        if (e < 0.8 || e > 3.6) continue;
+        if (e < 0.5 || e > 3.6) continue;
         ev.push_back(e);
         xsv.push_back(xs);
         dev.push_back(de);
@@ -146,7 +146,7 @@ void DrawAngleVertex()
     vector<double> dsxsv;
     while (fin >> e >> xs >> de >> dxs)
     {
-        if (e < 0.8 || e > 3.6) continue;
+        if (e < 0.5 || e > 3.6) continue;
         dsxsv.push_back(dxs);
     }
     fin.close();
@@ -154,21 +154,21 @@ void DrawAngleVertex()
     auto *gAngle = new TGraphErrors(ea.size(), ea.data(), xsa.data(), dea.data(), dxsa.data());
     auto *gVertex = new TGraphErrors(ev.size(), ev.data(), xsv.data(), dev.data(), dxsv.data());
 
-    gAngle->GetXaxis()->SetLimits(0.8, 3.6);
+    gAngle->GetXaxis()->SetLimits(0.5, 3.6);
     gAngle->GetXaxis()->SetTitle("E_{cm} (MeV)");
     gAngle->GetYaxis()->SetTitle("Total Cross Section (mb)");
     gAngle->SetMarkerStyle(20);
-    gAngle->SetMarkerSize(0.8);
+    gAngle->SetMarkerSize(0.5);
     gAngle->SetMarkerColor(kRed);
     gAngle->SetLineColor(kRed);
     gAngle->SetFillColor(kRed);
     gAngle->SetFillStyle(3004);
     gAngle->SetLineWidth(2);
-    gAngle->GetXaxis()->SetLimits(0.8, 3.6);
+    gAngle->GetXaxis()->SetLimits(0.5, 3.6);
     gAngle->GetXaxis()->SetTitle("E_{cm} [MeV]");
     gAngle->GetYaxis()->SetTitle("Total Cross Section [mb]");
     gVertex->SetMarkerStyle(20);
-    gVertex->SetMarkerSize(0.8);
+    gVertex->SetMarkerSize(0.5);
     gVertex->SetMarkerColor(kBlue);
     gVertex->SetLineColor(kBlue);
     gVertex->SetFillColor(kBlue); gVertex->SetFillStyle(3005);
@@ -176,7 +176,7 @@ void DrawAngleVertex()
 
     gVertex->GetXaxis()->SetLabelSize(0.04);
     gVertex->GetXaxis()->SetTitleSize(0.05);
-    gVertex->GetXaxis()->SetTitleOffset(0.8);
+    gVertex->GetXaxis()->SetTitleOffset(0.5);
     gVertex->GetXaxis()->CenterTitle();
     gVertex->GetYaxis()->SetLabelSize(0.04);
     gVertex->GetYaxis()->SetTitleSize(0.05);
@@ -184,8 +184,8 @@ void DrawAngleVertex()
     gVertex->GetYaxis()->CenterTitle();
 
     //gAngle->Draw("3 same");
-    //gVertex->Draw("AP");
-    gAngle->Draw("AP");
+    gVertex->Draw("AP");
+    gAngle->Draw("Psame");
     //gVertex->Draw("3 same");
 
     //auto *leg = new TLegend(0.15, 0.6, 0.3, 0.88);
@@ -204,7 +204,7 @@ void DrawSFactor()
     vector<double> ea, xsa, dea, dxsa;
     while (fin >> e >> xs >> de >> dxs)
     {
-        if (e < 0.8 || e > 3.6) continue;
+        if (e < 0.5 || e > 3.6) continue;
         ea.push_back(e);
         xsa.push_back(xs);
         dea.push_back(de);

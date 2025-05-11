@@ -1,6 +1,6 @@
 void draw_cs(bool sorryKubono = true)
 {
-	double xmin = 0.8, xmax = 3.5;
+	double xmin = 0.5, xmax = 3.5;
 	double Ex = 5.114;
 
 	auto readData = [](const string& filename, vector<Double_t>& x, vector<Double_t>& y, vector<Double_t>& err) 
@@ -100,17 +100,17 @@ void draw_cs(bool sorryKubono = true)
 
 
 	vector<Double_t> expcmE_MeV, expcs_mb, expcmE_err, expcs_err;
-	readData4("totxs/totxs_14Oap_a.txt", expcmE_MeV, expcs_mb, expcmE_err, expcs_err);
+	readData4("totxs/totxs_14Oap.txt", expcmE_MeV, expcs_mb, expcmE_err, expcs_err);
 	TGraphErrors * gExp = new TGraphErrors(expcmE_MeV.size(),expcmE_MeV.data(),expcs_mb.data(),expcmE_err.data(),expcs_err.data());
 	gExp->SetMarkerStyle(20);
-	gExp->SetMarkerSize(0.8);
+	gExp->SetMarkerSize(0.5);
 	gExp->SetMarkerColor(kRed);
 	gExp->SetLineColor(kRed);
 	gExp->SetFillColor(kRed);
 	gExp->SetFillStyle(3004);
 
 	vector<Double_t> syserrcmE_MeV, syserrcs_mb, syserrcmE_err, syserrcs_err;
-	readData4("totxs/totxs_14Oap_sysErr_a.txt", syserrcmE_MeV, syserrcs_mb, syserrcmE_err, syserrcs_err);
+	readData4("totxs/totxs_14Oap_sysErr.txt", syserrcmE_MeV, syserrcs_mb, syserrcmE_err, syserrcs_err);
 	TGraphErrors * gSys = new TGraphErrors(syserrcmE_MeV.size(),syserrcmE_MeV.data(),syserrcs_mb.data(),syserrcmE_err.data(),syserrcs_err.data());
 	gSys->SetLineColor(kBlue);
 	gSys->SetFillColor(kBlue);
@@ -123,7 +123,7 @@ void draw_cs(bool sorryKubono = true)
 		gExpSys->SetPointError(i, gExp->GetErrorXlow(i), gExp->GetErrorXhigh(i), gExp->GetErrorYlow(i)+gSys->GetErrorYlow(i)*2, gExp->GetErrorYhigh(i));
 	}
 	gExpSys->SetMarkerStyle(20);
-	gExpSys->SetMarkerSize(0.8);
+	gExpSys->SetMarkerSize(0.5);
 	gExpSys->SetMarkerColor(kRed);
 	gExpSys->SetLineColor(kRed);
 	gExpSys->SetFillColor(kRed);
@@ -133,7 +133,7 @@ void draw_cs(bool sorryKubono = true)
 	//readData4("totxs/totxs_14Oap1.txt", expcmE_MeV1, expcs_mb1, expcmE_err1, expcs_err1);
 	//TGraphErrors * gExp1 = new TGraphErrors(expcmE_MeV1.size(),expcmE_MeV1.data(),expcs_mb1.data(),expcmE_err1.data(),expcs_err1.data());
 	//gExp1->SetMarkerStyle(20);
-	//gExp1->SetMarkerSize(0.8);
+	//gExp1->SetMarkerSize(0.5);
 	//gExp1->SetMarkerColor(kYellow+1);
 	//gExp1->SetLineColor(kYellow+1);
 	//gExp1->SetFillColor(kYellow+1);

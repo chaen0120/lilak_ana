@@ -6,6 +6,10 @@ const double Na = 6.022E23; // mol^-1
 const double k = 1/11.6045; // MeV/GK
 const double mu = 2898.5 * 9E-20; // MeV
 
+const double Tmin = 0.2; // GK
+const double Tmax = 10; // GK
+const double Tstep = 0.01; // GK
+
 double Rate(double T, TString mode)
 {
     double prefactor = sqrt(8.0 / TMath::Pi() / mu) / pow(k * T, 1.5);
@@ -14,7 +18,7 @@ double Rate(double T, TString mode)
     vector<double> *Ecm;
     vector<double> *XS;
 
-    if (mode == "r")        { Ecm = &rEcm;   XS = &rXS; }
+    if      (mode == "r")   { Ecm = &rEcm;   XS = &rXS; }
     else if (mode == "t")   { Ecm = &tEcm;   XS = &tXS; }
     else if (mode == "t01") { Ecm = &t01Ecm; XS = &t01XS; }
     else { cerr << "Invalid mode: " << mode << endl; return 0; }
@@ -35,6 +39,22 @@ double Rate(double T, TString mode)
     return Na * prefactor * integral; // cm^3/mol/s
 }
 
+double AsymGaus(TRandom3 &rng, double Ymean, double dy1, double dy2)
+{
+    double sigmaL = abs(dy1);
+    double sigmaR = abs(dy2);
+    double total = sigmaL + sigmaR;
+
+    bool left = (rng.Uniform(0, total) < sigmaL);
+
+    double val;
+    do {
+        val = rng.Gaus(0, left ? sigmaL : sigmaR);
+    } while ((left && val > 0) || (!left && val < 0)); // 부호 조건
+
+    return Ymean + val;
+}
+
 void ReacRate()
 {
     double scale = 1;
@@ -45,19 +65,27 @@ void ReacRate()
     /* XS */
 
     // Expriment
-    vector<double> expEcm, expXS;
+    vector<double> expEcm, expXS, expXSerr1, expXSerr2;
     fin.open("../totxs/totxs_14Oap_a.txt"); // XS(Ecm = 3.45) = 3.62684 mb : last point
     while (fin >> t1 >> t2 >> t3 >> t4)
     {
         if (t1 < 0.5 || t1 > 3.5) continue;
         expEcm.push_back(t1);
         expXS.push_back(t2 * 1E-27); //cm^2
+        expXSerr1.push_back(t4 * 1E-27); //cm^2
         if (t1 == 3.45) scale *= t2 * 1E-27;
     }
     fin.close();
     auto *gRes = new TGraph(expEcm.size(), expEcm.data(), expXS.data());
     gRes->SetLineColor(kGreen+2);
     gRes->SetLineWidth(3);
+    fin.open("../totxs/totxs_14Oap_sysErr_a.txt");
+    while (fin >> t1 >> t2 >> t3 >> t4)
+    {
+        if (t1 < 0.5 || t1 > 3.5) continue;
+        expXSerr2.push_back(t4 * 1E-27); //cm^2
+    }
+    fin.close();
 
     // TALYS; total
     fin.open("talys/ap.tot");
@@ -156,9 +184,11 @@ void ReacRate()
     gRateTot->SetLineColor(kMagenta);
     gRateTot->SetLineWidth(3);
     auto *gExpRate = new TGraph();
+    gExpRate->SetFillColor(kGreen+1);
+    gExpRate->SetFillStyle(3001);
     gExpRate->SetLineColor(kGreen+1);
     gExpRate->SetLineWidth(3);
-    for (double T = 0.2; T < 10; T += 0.1) //GK
+    for (double T = Tmin; T < Tmax; T += Tstep) //GK
     {
         auto rate = Rate(T, "t01");
         gRate->SetPoint(gRate->GetN(), T, rate);
@@ -170,23 +200,83 @@ void ReacRate()
         gExpRate->SetPoint(gExpRate->GetN(), T, rateRes);
     }
 
-    /* Draw*/
+    TRandom3 rng(0);
+    int iter = 1E5;
+    auto *hMExpRate = new TH2D("hMExpRate", "hMExpRate", (Tmax-Tmin)/Tstep+1, Tmin, Tmax, 1000, -15, 6);
+    for (int i=0; i<iter; i++)
+    {
+        cout << "\r" << i << "/" << iter << flush;
+        bool first = true;
+        int start = 0;
+        for (int iE=0; iE<rEcm.size(); iE++)
+        {
+            if (rEcm[iE] <= 0.5) continue;
+            if (rEcm[iE] >= 3.5) break;
+            if (first) { start = iE; first = false; }
+            auto newXS = AsymGaus(rng, expXS[iE - start], expXSerr1[iE - start] + expXSerr2[iE - start], expXSerr1[iE - start]);
+            rXS[iE] = newXS;
+        }
 
-    auto *cvs = new TCanvas("cvs","cvs", 1500,800);
+        for (double T = Tmin; T < Tmax; T += Tstep) //GK
+        {
+            auto rateRes = Rate(T, "r");
+            hMExpRate->Fill(T, log10(rateRes));
+        }
+    }
+    cout << endl;
+
+    auto *gMExpRate = new TGraphErrors();
+    gMExpRate->SetFillColor(kGreen+1);
+    gMExpRate->SetFillStyle(3001);
+    auto *gMExpRatelog = new TGraphErrors();
+    gMExpRatelog->SetFillColor(kGreen+1);
+    gMExpRatelog->SetFillStyle(3001);
+    TH1D *proj;
+    for (int iT=0; iT<hMExpRate->GetNbinsX(); iT++)
+    {
+        proj = hMExpRate->ProjectionY("proj", iT+1, iT+1);
+        double x = Tmin + iT * Tstep;
+        double y = proj->GetMean();
+        double err = proj->GetRMS();
+        gMExpRatelog->SetPoint(iT, x, y);
+        gMExpRatelog->SetPointError(iT, 0.1, err);
+        gMExpRate->SetPoint(iT, x, pow(10, y));
+        gMExpRate->SetPointError(iT, 0.05, pow(10, y) * log(10) * err);
+        proj->Reset("ICES");
+    }
+
+    /* Draw */
+
+    auto *cvs = new TCanvas("cvs","cvs", 1500,700);
     cvs->Divide(2,1);
+
     cvs->cd(1); gPad->SetLogy();
     gXS->GetXaxis()->SetTitle("E_{cm} [MeV]");
     gXS->GetYaxis()->SetTitle("Cross Section [mb]");
-    gXS->Draw("CA");
-    gXStot->Draw("Csame");
-    gXSscale->Draw("Csame");
-    gRes->Draw("Csame");
+    gXS->Draw("LA");
+    gXStot->Draw("Lsame");
+    gXSscale->Draw("Lsame");
+    gRes->Draw("Lsame");
+
     cvs->cd(2); gPad->SetLogy(); gPad->SetLogx();
     gRate->GetXaxis()->SetTitle("Temperature [GK]");
     gRate->GetYaxis()->SetTitle("Reaction Rate [cm^3/s/mol]");
     gRate->Draw("CA"); 
     gRateTot->Draw("Csame");
-    gExpRate->Draw("Csame");
     gReaclib->Draw("Csame");
     gAZURE->Draw("Csame");
+    gExpRate->Draw("Csame");
+    gMExpRate->Draw("e3same");
+
+    auto *leg = new TLegend(0.15, 0.6, 0.3, 0.88);
+    leg->AddEntry(gRate, "TALYS (total)", "l");
+    leg->AddEntry(gRateTot, "TALYS (p0+p1)", "l");
+    leg->AddEntry(gReaclib, "Reaclib", "l");
+    leg->AddEntry(gAZURE, "AZURE", "l");
+    leg->AddEntry(gExpRate, "Exp. + TALYS", "lf");
+    leg->Draw();
+
+    //cvs->cd(3); gPad->SetLogx();
+    //hMExpRate->Draw("colz");
+    //gMExpRatelog->Draw("e3same");
 }
