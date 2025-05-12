@@ -1,6 +1,7 @@
 vector<double> rEcm, rXS; // experiment
 vector<double> tEcm, tXS;
 vector<double> t01Ecm, t01XS;
+vector<double> rmb, tmb, t01mb;
 
 const double Na = 6.022E23; // mol^-1
 const double k = 1/11.6045; // MeV/GK
@@ -65,18 +66,19 @@ void ReacRate()
     /* XS */
 
     // Expriment
-    vector<double> expEcm, expXS, expXSerr1, expXSerr2;
+    vector<double> expEcm, expXS, expXSerr1, expXSerr2, expmb;
     fin.open("../totxs/totxs_14Oap_a.txt"); // XS(Ecm = 3.45) = 3.62684 mb : last point
     while (fin >> t1 >> t2 >> t3 >> t4)
     {
         if (t1 < 0.5 || t1 > 3.5) continue;
         expEcm.push_back(t1);
         expXS.push_back(t2 * 1E-27); //cm^2
+        expmb.push_back(t2);
         expXSerr1.push_back(t4 * 1E-27); //cm^2
         if (t1 == 3.45) scale *= t2 * 1E-27;
     }
     fin.close();
-    auto *gRes = new TGraph(expEcm.size(), expEcm.data(), expXS.data());
+    auto *gRes = new TGraph(expEcm.size(), expEcm.data(), expmb.data());
     gRes->SetLineColor(kGreen+2);
     gRes->SetLineWidth(3);
     fin.open("../totxs/totxs_14Oap_sysErr_a.txt");
@@ -96,9 +98,10 @@ void ReacRate()
         iss >> t1 >> t2 >> t3 >> t4 >> t5;
         tEcm.push_back(t1 * 14 / 18);
         tXS.push_back(t2 * 1E-27); //cm^2
+        tmb.push_back(t2);
     }
     fin.close();
-    auto *gXStot = new TGraph(tEcm.size(), tEcm.data(), tXS.data());
+    auto *gXStot = new TGraph(tEcm.size(), tEcm.data(), tmb.data());
     gXStot->SetLineColor(kMagenta);
     gXStot->SetLineWidth(3);
 
@@ -127,9 +130,10 @@ void ReacRate()
     for (int i=0; i<t01Ecm.size(); i++)
     {
         t01XS.push_back(t0XS[i] + t1XS[i]);
+        t01mb.push_back((t0XS[i]+t1XS[i])*1E27);
         if (t01Ecm[i]*18/14 >= 4.4 && t01Ecm[i]*18/14 <= 4.5) scaletemp += t01XS[i];
     }
-    auto *gXS = new TGraph(t01Ecm.size(), t01Ecm.data(), t01XS.data());
+    auto *gXS = new TGraph(t01Ecm.size(), t01Ecm.data(), t01mb.data());
     gXS->SetLineColor(kBlack);
     gXS->SetLineWidth(3);
 
@@ -139,25 +143,28 @@ void ReacRate()
         double x, y;
         gXS->GetPoint(i, x, y);
         if (x >0.5) break;
-        y *= scale;
+        y *= scale*1E-27;
         rEcm.push_back(x);
         rXS.push_back(y);
+        rmb.push_back(y*1E27);
     }
     for (int i=0; i < expEcm.size(); i++)
     {
         rEcm.push_back(expEcm[i]);
         rXS.push_back(expXS[i]);
+        rmb.push_back(expmb[i]);
     }
     for (int i = 0; i < gXS->GetN(); i++)
     {
         double x, y;
         gXS->GetPoint(i, x, y);
         if (x <3.5) continue;
-        y *= scale;
+        y *= scale*1E-27;
         rEcm.push_back(x);
         rXS.push_back(y);
+        rmb.push_back(y*1E27);
     }
-    auto *gXSscale = new TGraph(rEcm.size(), rEcm.data(), rXS.data());
+    auto *gXSscale = new TGraph(rEcm.size(), rEcm.data(), rmb.data());
     gXSscale->SetLineColor(kGreen+1);
     gXSscale->SetLineWidth(3);
     gXSscale->SetLineStyle(kDashed);
@@ -201,7 +208,7 @@ void ReacRate()
     }
 
     TRandom3 rng(0);
-    int iter = 1E5;
+    int iter = 1E2;
     auto *hMExpRate = new TH2D("hMExpRate", "hMExpRate", (Tmax-Tmin)/Tstep+1, Tmin, Tmax, 1000, -15, 6);
     for (int i=0; i<iter; i++)
     {
@@ -279,4 +286,6 @@ void ReacRate()
     //cvs->cd(3); gPad->SetLogx();
     //hMExpRate->Draw("colz");
     //gMExpRatelog->Draw("e3same");
+
+    cvs->SaveAs("cvs.root");
 }
