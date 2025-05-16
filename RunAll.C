@@ -171,7 +171,8 @@ void DrawAngleVertex()
     gVertex->SetMarkerSize(0.5);
     gVertex->SetMarkerColor(kBlue);
     gVertex->SetLineColor(kBlue);
-    gVertex->SetFillColor(kBlue); gVertex->SetFillStyle(3005);
+    gVertex->SetFillColor(kBlue);
+    gVertex->SetFillStyle(3005);
     gVertex->SetLineWidth(2);
 
     gVertex->GetXaxis()->SetLabelSize(0.04);
@@ -186,13 +187,15 @@ void DrawAngleVertex()
     //gAngle->Draw("3 same");
     gVertex->Draw("AP");
     gAngle->Draw("Psame");
+    gVertex->Draw("e3same");
+    gAngle->Draw("e3same");
     //gVertex->Draw("3 same");
 
-    //auto *leg = new TLegend(0.15, 0.6, 0.3, 0.88);
-    //leg->AddEntry(gAngle, "Angle", "p");
-    //leg->AddEntry(gVertex, "Vertex", "p");
-    //leg->Draw();
-    //gPad->SetLogy();
+    auto *leg = new TLegend(0.15, 0.6, 0.3, 0.88);
+    leg->AddEntry(gAngle, "Angle", "pf");
+    leg->AddEntry(gVertex, "Vertex", "pf");
+    leg->Draw();
+    gPad->SetLogy();
     gPad->SetGrid();
 }
 

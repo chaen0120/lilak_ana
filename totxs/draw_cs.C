@@ -100,7 +100,7 @@ void draw_cs(bool sorryKubono = true)
 
 
 	vector<Double_t> expcmE_MeV, expcs_mb, expcmE_err, expcs_err;
-	readData4("totxs/totxs_14Oap.txt", expcmE_MeV, expcs_mb, expcmE_err, expcs_err);
+	readData4("totxs/totxs_14Oap_a.txt", expcmE_MeV, expcs_mb, expcmE_err, expcs_err);
 	TGraphErrors * gExp = new TGraphErrors(expcmE_MeV.size(),expcmE_MeV.data(),expcs_mb.data(),expcmE_err.data(),expcs_err.data());
 	gExp->SetMarkerStyle(20);
 	gExp->SetMarkerSize(0.5);
@@ -110,7 +110,7 @@ void draw_cs(bool sorryKubono = true)
 	gExp->SetFillStyle(3004);
 
 	vector<Double_t> syserrcmE_MeV, syserrcs_mb, syserrcmE_err, syserrcs_err;
-	readData4("totxs/totxs_14Oap_sysErr.txt", syserrcmE_MeV, syserrcs_mb, syserrcmE_err, syserrcs_err);
+	readData4("totxs/totxs_14Oap_sysErr_a.txt", syserrcmE_MeV, syserrcs_mb, syserrcmE_err, syserrcs_err);
 	TGraphErrors * gSys = new TGraphErrors(syserrcmE_MeV.size(),syserrcmE_MeV.data(),syserrcs_mb.data(),syserrcmE_err.data(),syserrcs_err.data());
 	gSys->SetLineColor(kBlue);
 	gSys->SetFillColor(kBlue);
