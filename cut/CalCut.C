@@ -6,15 +6,15 @@ int iAlpha = 1;
 int i14O = 2;
 int i14N = 3;
 double Mass[4] = {1.00782, 4.00260, 14.00860, 14.00307};
-void ThickTargetAnalysis(int mode, TVector3 SiHit, double Edet, int kLight, int kBeam, double &th, double &Z);
+void ThickTargetAnalysis(int mode, TVector3 SiHit, double Edet, int kLight, int kBeam, double &th, double &Z, double &Ecm);
 
 void CalCut()
 {
     auto *run = new LKRun();
     auto *tt = new TexAT2();
-    run->AddPar("/home/cens-alpha-00/lilak/texat_ana/temp_reco/config/config_common.mac");
-    run->AddPar("/home/cens-alpha-00/lilak/texat_ana/temp_reco/config/config_reco.mac");
-    run->AddPar("/home/cens-alpha-00/lilak/texat_ana/temp_reco/config/config_ana.mac");
+    run->AddPar("./config/config_common.mac");
+    run->AddPar("./config/config_reco.mac");
+    run->AddPar("./config/config_ana.mac");
     run->AddDetector(tt);
     run->Add(ana);
     run->Init();
@@ -44,7 +44,7 @@ void CalCut()
                           1.575, 1.537, 1.465, 1.525, 1.471, 1.423, 1.491, 1.563};
     TCutG *cuts[40]; SetCutP(cuts);
 
-    auto *fin = new TFile("ana/p0/ana_14Oap.root");
+    auto *fin = new TFile("../ana/alpha/ana_14Oaa.root");
     auto *tree = (TTree*) fin->Get("event");
     auto nEvts = tree->GetEntries();
 
@@ -56,13 +56,16 @@ void CalCut()
     tree->SetBranchAddress("EventEnder",&ender);
     tree->SetBranchAddress("Track",&track);
 
-    TH2D *his_EdvsSA[40], *his_EdvsSZ[40], *his_EdvsTA[40], *his_EdvsTZ[40]; 
+    //TH2D *his_EdvsSA[40], *his_EdvsSZ[40], *his_EdvsTA[40], *his_EdvsTZ[40]; 
+    TH2D *his_EdvsSZEcm[40], *his_EdvsTZEcm[40];
     for (int i=0; i<40; i++)
     {
-        his_EdvsTA[i] = new TH2D(Form("his_EdvsTA_%d", i), Form("his_EdvsTA_%d;TPC Ang;Edet", detmap[i]), 180, 0, 180, 30, 0, 30);
-        his_EdvsTZ[i] = new TH2D(Form("his_EdvsTZ_%d", i), Form("his_EdvsTZ_%d;TPC Z;Edet", detmap[i]), 300, 0, 600, 300, 0, 30);
-        his_EdvsSA[i] = new TH2D(Form("his_EdvsSA_%d", i), Form("his_EdvsSA_%d;Si Ang;Edet", detmap[i]), 180, 0, 180, 300, 0, 30);
-        his_EdvsSZ[i] = new TH2D(Form("his_EdvsSZ_%d", i), Form("his_EdvsSZ_%d;Si Z;Edet", detmap[i]), 300, 0, 600, 300, 0, 30);
+        //his_EdvsTA[i] = new TH2D(Form("his_EdvsTA_%d", i), Form("his_EdvsTA_%d;TPC Ang;Edet", detmap[i]), 180, 0, 180, 30, 0, 30);
+        //his_EdvsTZ[i] = new TH2D(Form("his_EdvsTZ_%d", i), Form("his_EdvsTZ_%d;TPC Z;Edet", detmap[i]), 300, 0, 600, 300, 0, 30);
+        //his_EdvsSA[i] = new TH2D(Form("his_EdvsSA_%d", i), Form("his_EdvsSA_%d;Si Ang;Edet", detmap[i]), 180, 0, 180, 300, 0, 30);
+        //his_EdvsSZ[i] = new TH2D(Form("his_EdvsSZ_%d", i), Form("his_EdvsSZ_%d;Si Z;Edet", detmap[i]), 300, 0, 600, 300, 0, 30);
+        his_EdvsSZEcm[i] = new TH2D(Form("his_EdvsSZEcm_%d", i), Form("his_EdvsSZEcm_%d;Si Ecm;Edet", detmap[i]), 100, 0, 10, 25, 0, 25);
+        his_EdvsTZEcm[i] = new TH2D(Form("his_EdvsTZEcm_%d", i), Form("his_EdvsTZEcm_%d;TPC Ecm;Edet", detmap[i]), 100, 0, 10, 25, 0, 25);
     }
     for (int iEvt = 0; iEvt < nEvts; iEvt++)
     {
@@ -79,49 +82,59 @@ void CalCut()
         if (Edet < SiThres[iDet]) continue;
         if (cuts[iDet] != nullptr && !cuts[iDet]->IsInside(Edet, dEdx)) continue;
         auto SiHit = end->GetSiHit();
-        double SiA = -1, SiZ = -1;
-        ThickTargetAnalysis(0, SiHit, Edet, iProton, i14O, SiA, SiZ);
-        his_EdvsSA[iDet]->Fill(SiA, Edet);
-        his_EdvsSZ[iDet]->Fill(SiZ, Edet);
-        ThickTargetAnalysis(1, SiHit, Edet, iProton, i14O, SiA, SiZ);
-        his_EdvsSA[iDet]->Fill(SiA, Edet);
-        his_EdvsSZ[iDet]->Fill(SiZ, Edet);
-        ThickTargetAnalysis(2, SiHit, Edet, iProton, i14O, SiA, SiZ);
-        his_EdvsSA[iDet]->Fill(SiA, Edet);
-        his_EdvsSZ[iDet]->Fill(SiZ, Edet);
+        double SiA = -1, SiZ = -1, SiEcm = -1;
+        ThickTargetAnalysis(0, SiHit, Edet, iAlpha, i14O, SiA, SiZ, SiEcm);
+        //his_EdvsSA[iDet]->Fill(SiA, Edet);
+        //his_EdvsSZ[iDet]->Fill(SiZ, Edet);
+        his_EdvsSZEcm[iDet]->Fill(SiEcm, Edet);
+        ThickTargetAnalysis(1, SiHit, Edet, iAlpha, i14O, SiA, SiZ, SiEcm);
+        //his_EdvsSA[iDet]->Fill(SiA, Edet);
+        //his_EdvsSZ[iDet]->Fill(SiZ, Edet);
+        his_EdvsSZEcm[iDet]->Fill(SiEcm, Edet);
+        ThickTargetAnalysis(2, SiHit, Edet, iAlpha, i14O, SiA, SiZ, SiEcm);
+        //his_EdvsSA[iDet]->Fill(SiA, Edet);
+        //his_EdvsSZ[iDet]->Fill(SiZ, Edet);
+        his_EdvsSZEcm[iDet]->Fill(SiEcm, Edet);
 
         auto TPCAlab = end->GetAlab();
         auto TPCvert = end->GetVertex();
-        his_EdvsTA[iDet]->Fill(TPCAlab, Edet);
-        his_EdvsTZ[iDet]->Fill(TPCvert.Z(), Edet);
+        //his_EdvsTA[iDet]->Fill(TPCAlab, Edet);
+        //his_EdvsTZ[iDet]->Fill(TPCvert.Z(), Edet);
+        his_EdvsTZEcm[iDet]->Fill(fZE->Eval(TPCvert.Z()), Edet);
     }
 
     gStyle->SetPalette(kBird);;
-    TCanvas *cvs[2] = { new TCanvas("cvsA","cvsA",3000,2000), new TCanvas("cvsZ","cvsZ",3000,2000) };
-    for (int iCvs=0; iCvs<2; iCvs++)
+    //TCanvas *cvs[2] = { new TCanvas("cvsA","cvsA",3000,2000), new TCanvas("cvsZ","cvsZ",3000,2000) };
+    auto *cvs = new TCanvas("cvs","cvs",3000,2000);
+    cvs->Divide(8, 5);
+    //for (int iCvs=0; iCvs<2; iCvs++)
     {
-        cvs[iCvs]->Divide(8, 5);
+        //cvs[iCvs]->Divide(8, 5);
         for (int i = 0; i < 40; i++)
         {
-            cvs[iCvs]->cd(i + 1);
-            if (iCvs == 0) { his_EdvsSA[i]->Draw("colz"); }
-            else           { his_EdvsSZ[i]->Draw("colz"); }
+            //cvs[iCvs]->cd(i + 1);
+            //if (iCvs == 0) { his_EdvsSA[i]->Draw("colz"); }
+            //else           { his_EdvsSZ[i]->Draw("colz"); }
+            cvs->cd(i + 1);
+            his_EdvsSZEcm[i]->Draw("colz");
         }
     }
 
-    TFile *fout = new TFile("FindCut_14Oap.root","recreate");
+    TFile *fout = new TFile("FindCut_14Oaa.root","recreate");
     fout->cd();
     for (int i = 0; i < 40; i++)
     {
-        his_EdvsSZ[i]->Write();
-        his_EdvsTZ[i]->Write();
-        his_EdvsSA[i]->Write();
-        his_EdvsTA[i]->Write();
+        //his_EdvsSZ[i]->Write();
+        //his_EdvsTZ[i]->Write();
+        //his_EdvsSA[i]->Write();
+        //his_EdvsTA[i]->Write();
+        his_EdvsSZEcm[i]->Write();
+        his_EdvsTZEcm[i]->Write();
     }
     fout->Close();
 }
 
-void ThickTargetAnalysis(int mode, TVector3 SiHit, double Edet, int kLight, int kBeam, double &th, double &Z)
+void ThickTargetAnalysis(int mode, TVector3 SiHit, double Edet, int kLight, int kBeam, double &th, double &Z, double &Ecm)
 {
     TVector3 BeamAtBM(0,0,24);
     TVector3 BeamDir(0,0,1);
@@ -152,6 +165,7 @@ void ThickTargetAnalysis(int mode, TVector3 SiHit, double Edet, int kLight, int 
     }
     while(IterLen>0.01);
 
+    Ecm = newEcm;
     th = angle * TMath::RadToDeg();
     Z  = BeamLen + 24;
     return;

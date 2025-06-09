@@ -1,9 +1,9 @@
 const double minEcm = 0;     // [MeV]
 const double maxEcm = 10;    // [MeV]
-const int nBins = 100;
+const int nBins = 50;
 const double binSize = (maxEcm - minEcm) / nBins; // [MeV]
 
-bool IsVertexEcm = true;
+bool IsVertexEcm = false;
 bool IsBackground = false;
 bool Is14N = false;
 
@@ -72,10 +72,12 @@ TGraphErrors *GetWeightedAverage(TGraphErrors **gXS, TH1D *hisErr);
 TCutG *cuts[40];
 TCutG *cutEA[40];
 TCutG *cutEZ[40];
+TCutG *cutEcm[40];
 void SetCutP(TCutG **cutP);
 void SetCutA(TCutG **cutA);
 void SetCutBG(TCutG **cutBG, TString pora, TString type);
 void ReadCut(TCutG **cutE, TString AorZ, TString type);
+void ReadCutEcm(TCutG **cutE, TString type);
 void MoveCut(TCutG **cut, double shift);
 
 
@@ -123,3 +125,17 @@ void SaveBatch(TCanvas *cvs)
     if (gROOT->IsBatch())
         cvs->SaveAs(Form("png/%s.png", cvs->GetName()));
 }
+
+TH1D *his_EAll, *his_E[40], *his_EGood[40];
+TH1D *his_Eraw[40], *his_EGoodraw[40];
+TH1D *his_EError, *his_weightedEError;
+TH1D *his_EfromZAll, *his_EfromZ[40];
+TH2D *his_EvsZAll, *his_EvsZ[40], *his_SEvsZ[40];
+TH1D *his_Z[40];
+TH2D *his_Ecm[40];
+TH2D *his_dEdx[40];
+TH2D *his_TEvsTA[40], *his_TEvsTL[40], *his_TEvsSA[40], *his_TEvsSL[40];
+TH2D *his_SEvsTA[40], *his_SEvsTL[40], *his_SEvsSA[40], *his_SEvsSL[40];
+TH2D *his_EdvsSA[40], *his_EdvsSZ[40], *his_EdvsTA[40], *his_EdvsTZ[40]; 
+TH2D *his_EdvsTE[40], *his_EdvsSE[40];
+TH2D *his_EdvsTZEcm[40], *his_EdvsSZEcm[40];

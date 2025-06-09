@@ -1,0 +1,54 @@
+#################################################################################################
+BeamParticle    14O
+#BeamParticle    14N
+#LightEjectile   proton
+LightEjectile   alpha
+#################################################################################################
+*LKRun/DataPath {lilak_data}
+
+bnnx     200, -175, 175
+bnny     85, -70, 100
+bnnz     280,    0, 500
+#bnnz     141,  150, 500
+
+#beamx1   -20.58
+#beamx2   20.58
+#beam_zt  0.5*({bnnz[1]}+{bnnz[2]})
+#beam_yt  {bnny[1]}-({bnny[2]}-{bnny[1]})
+bnnr     150, 0, 0
+bnnt     120, 0, 0
+################################################################################################
+TTHTBeamTrackingTask/num_track_hits_cut     5     
+TTHTBeamTrackingTask/num_beam_tracks_cut    4     
+#     transform_center_zy     {zt} {yt}
+#     z_binning           {bnnz}
+#TTHTBeamTrackingTask/y_binning           {bnny}  
+#     r_binning           {bnnr}
+#     t_binning           {bnnt}
+# ################################################################################################
+TTHTTrackingTask/
+    minCharge     300 
+    maxCharge     4000
+    use_transform_with_chain_strip_combination  false      
+    numStripHitsCut 2      # number of chain hits should be larger than this cut to be reconstructed
+    numChainHitsCut 2      # number of strip hits should be larger than this cut to be reconstructed
+    x_binning     {bnnx}     
+    y_binning     {bnny}     
+    z_binning     {bnnz}     
+    r_binning     {bnnr}
+    t_binning     {bnnt}
+#    transform_center    {bnnx[1]} {bnny[1]} {bnnz[1]}
+    useAngleCut     false
+#################################################################################################
+persistency/
+    RawData     false
+    EventHeader true
+    BeamHeader  true
+    HitCenter   true
+    HitLStrip   true
+    HitLChain   true
+    HitRStrip   true
+    HitRChain   true
+    HitOthers   true
+    Track       true
+    BeamTrack   true

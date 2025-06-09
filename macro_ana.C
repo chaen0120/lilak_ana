@@ -1,19 +1,6 @@
 #include "macro_ana.h"
 #include "cut/SetCuts.C"
 
-TH1D *his_EAll, *his_E[40], *his_EGood[40];
-TH1D *his_Eraw[40], *his_EGoodraw[40];
-TH1D *his_EError, *his_weightedEError;
-TH1D *his_EfromZAll, *his_EfromZ[40];
-TH2D *his_EvsZAll, *his_EvsZ[40], *his_SEvsZ[40];
-TH1D *his_Z[40];
-TH2D *his_Ecm[40];
-TH2D *his_dEdx[40];
-TH2D *his_TEvsTA[40], *his_TEvsTL[40], *his_TEvsSA[40], *his_TEvsSL[40];
-TH2D *his_SEvsTA[40], *his_SEvsTL[40], *his_SEvsSA[40], *his_SEvsSL[40];
-TH2D *his_EdvsSA[40], *his_EdvsSZ[40], *his_EdvsTA[40], *his_EdvsTZ[40]; 
-TH2D *his_EdvsTE[40], *his_EdvsSE[40];
-
 void macro_ana(TString type = "14Oap")
 {
     gStyle->SetPalette(kRainbow);
@@ -61,19 +48,6 @@ void macro_ana(TString type = "14Oap")
     TH1D *his[3] = { new TH1D("his0","his0",50,0,20),
                      new TH1D("his6","his6",50,0,20),
                      new TH1D("his8","his8",50,0,20) };
-    // 8 TCutG *cutg = new TCutG("CUTG",6);
-    // 8 cutg->SetPoint(0,0.661544,6.36474);
-    // 8 cutg->SetPoint(1,0.761361,4.48102);
-    // 8 cutg->SetPoint(2,3.92224,2.63034);
-    // 8 cutg->SetPoint(3,4.72078,3.95225);
-    // 8 cutg->SetPoint(4,1.26045,6.2656);
-    // 8 cutg->SetPoint(5,0.661544,6.36474);
-    // 0 TCutG *cutg = new TCutG("CUTG",5);
-    // 0 cutg->SetPoint(0,0.561727,8.71114);
-    // 0 cutg->SetPoint(1,8.21438,4.6793);
-    // 0 cutg->SetPoint(2,8.04802,3.68787);
-    // 0 cutg->SetPoint(3,0.46191,6.36474);
-    // 0 cutg->SetPoint(4,0.561727,8.71114);
 
     int maxdEdx = 2000, maxEdet = 20;
     if (reac == 'a' || type(6, 3) == "all" || type(3, 3) == "CO2")
@@ -110,6 +84,7 @@ void macro_ana(TString type = "14Oap")
         his_EdvsSZ[i] = new TH2D(Form("his_EdvsSZ_%d", i), Form("his_EdvsSZ_%d;Si Z;Edet", detmap[i]),    100, 0, 600, 100, 0, 30);
         his_EdvsTE[i] = new TH2D(Form("his_EdvsTE_%d", i), Form("his_EdvsTE_%d;TPC Ecm;Edet", detmap[i]), 200, 0,  20, 200, 0, 20);
         his_EdvsSE[i] = new TH2D(Form("his_EdvsSE_%d", i), Form("his_EdvsSE_%d;Si Ecm;Edet", detmap[i]),  200, 0,  20, 200, 0, 20);
+        his_EdvsSZEcm[i] = new TH2D(Form("his_EdvsSZEcm_%d", i), Form("his_EdvsSZEcm_%d;Ecm from Z;Edet", detmap[i]), nBins, minEcm, maxEcm, 200, 0, 20);
     }
     TH2D *his_forw[5];
     for (int i = 0; i < 5; i++) his_forw[i] = new TH2D(Form("his_forw%d", drawmap[i]), Form("his_forw%d;CsIE;SiE", drawmap[i]), 100, 0, 20, 100, 0, 20);
@@ -178,6 +153,7 @@ void macro_ana(TString type = "14Oap")
         his_EdvsTA[iDet]->Fill(TPCAlab, Edet);
         his_EdvsSZ[iDet]->Fill(Sivert.Z(), Edet);
         his_EdvsTZ[iDet]->Fill(TPCvert.Z(), Edet);
+        his_EdvsSZEcm[iDet]->Fill(ZtoE(TPCvert.Z()), Edet);
         if (!cutEA[iDet]->IsInside(TPCAlab, Edet)) continue;
         if (!cutEZ[iDet]->IsInside(TPCvert.Z(), Edet)) continue;
 
@@ -258,6 +234,9 @@ void macro_ana(TString type = "14Oap")
             his_Error[5]->Fill(errTh , EcmFill);
         }
     }
+    auto *foutfile = new TFile("EpVSEcmZ_nocut.root","recreate");
+    for (int i=0; i<40; i++) his_EdvsSZEcm[i]->Write();
+    foutfile->Close();
 
     //FindCut();
     //Simulation();
@@ -617,6 +596,10 @@ void DrawAllDetector(TH2D **his)
             strcmp(his[drawmap[i]]->GetName(), Form("his_EdvsSZ_%d", drawmap[i])) == 0)
             if (cutEZ[drawmap[i]] != nullptr || cutEZ[drawmap[i]]->GetN() > 0)
                 cutEZ[drawmap[i]]->Draw("same");
+        if (strcmp(his[drawmap[i]]->GetName(), Form("his_EdvsTZEcm_%d", drawmap[i])) == 0 ||
+            strcmp(his[drawmap[i]]->GetName(), Form("his_EdvsSZEcm_%d", drawmap[i])) == 0)
+            if (cutEcm[drawmap[i]] != nullptr || cutEcm[drawmap[i]]->GetN() > 0)
+                cutEcm[drawmap[i]]->Draw("same");
     }
     SaveBatch(cvs);
 }

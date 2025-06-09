@@ -1,4 +1,4 @@
-#include "macro_ana.C"
+#include "macro_alpha.C"
 #include "totxs/draw_cs.C"
 
 TH1D *hisMain[40], *hisBG[40], *hisN[40], *hisNB[40], *hisGood[40];
@@ -12,14 +12,14 @@ void macro_14O(bool isGoodEvents = false, bool isSubtractBG = true)
     cout << "isGoodEvents = " << isGoodEvents << ", isSubtractBG = " << isSubtractBG << endl;
 
     beam = 'O';
-    reac = 'p';
+    reac = 'a';
     nBeam = nBeam14Oa;
 
     SetOthers();
-    GetEfficiency(effMain, nEcmMain, "proton");
-    GetEfficiency(effBG, nEcmBG, "CO2_proton");
-    GetEfficiency(effN, nEcmN, "Nproton");
-    GetEfficiency(effNB, nEcmNB, "Nproton"); //XXX
+    GetEfficiency(effMain, nEcmMain, "alpha");
+    GetEfficiency(effBG, nEcmBG, "CO2_alpha");
+    GetEfficiency(effN, nEcmN, "Nalpha");
+    GetEfficiency(effNB, nEcmNB, "Nalpha"); //XXX
 
     // Init histograms
     TH1D *hisMainAll     = new TH1D("hisMainAll", Form("Yield;E_{cm}[MeV]; Counts / %d",(int)(binSize*1000)), nBins, minEcm, maxEcm);
@@ -29,7 +29,7 @@ void macro_14O(bool isGoodEvents = false, bool isSubtractBG = true)
     TH1D *hisNBAll       = new TH1D("hisNBAll", Form("Yield;E_{cm}[MeV]; Counts / %d",(int)(binSize*1000)), nBins, minEcm, maxEcm);
     TH1D *hisAll         = new TH1D("hisAll", Form("Yield;E_{cm}[MeV]; Counts / %d",(int)(binSize*1000)), nBins, minEcm, maxEcm);
 
-    auto fnameMain = Form("results/Yield_14Oap_%d.root",(int)(binSize*1000));
+    auto fnameMain = Form("results/Yield_14Oaa_%d.root",(int)(binSize*1000));
     cout << "Main: " << fnameMain << endl;
     auto finMain = new TFile(fnameMain);
     hisMainError = (TH1D*) finMain->Get("his_EError");
@@ -45,7 +45,7 @@ void macro_14O(bool isGoodEvents = false, bool isSubtractBG = true)
         hisMainAllGood->Add(hisGood[i]);
     }
 
-    auto fnameBG = Form("results/Yield_14OCO2p_%d.root",(int)(binSize*1000));
+    auto fnameBG = Form("results/Yield_14OCO2a_%d.root",(int)(binSize*1000));
     cout << "CO2 : " << fnameBG << endl;
     auto finBG = new TFile(fnameBG);
     for (int i=0; i<40; i++)
@@ -55,7 +55,7 @@ void macro_14O(bool isGoodEvents = false, bool isSubtractBG = true)
         hisBGAll->Add(hisBG[i]);
     }
 
-    auto fnameN = Form("results/Yield_14Oap_14N_%d.root",(int)(binSize*1000));
+    auto fnameN = Form("results/Yield_14Oaa_14N_%d.root",(int)(binSize*1000));
     cout << "14N : " << fnameN << endl;
     auto finN = new TFile(fnameN);
     for (int i=0; i<40; i++)
@@ -65,7 +65,7 @@ void macro_14O(bool isGoodEvents = false, bool isSubtractBG = true)
         hisNAll->Add(hisN[i]);
     }
 
-    auto fnameNB = Form("results/Yield_14OCO2p_14N_%d.root",(int)(binSize*1000));
+    auto fnameNB = Form("results/Yield_14OCO2a_14N_%d.root",(int)(binSize*1000));
     cout << "14NB : " << fnameNB << endl;
     auto finNB = new TFile(fnameNB);
     for (int i=0; i<40; i++)
@@ -90,9 +90,9 @@ void macro_14O(bool isGoodEvents = false, bool isSubtractBG = true)
         g_xsGood[iDet] = GetCrossSection(true, iDet);
     }
     auto g_xsAll = GetAverage(g_xs, hisMainAll, hisMainError);
-    g_xsAll->SetTitle("Total Cross Section of 14Oap;E_{cm} [MeV];XS [mb]");
+    g_xsAll->SetTitle("Total Cross Section of 14Oaa;E_{cm} [MeV];XS [mb]");
     auto g_weightedxsAll = GetWeightedAverage(g_xs, hisMainwEError);
-    g_weightedxsAll->SetTitle("Total Cross Section (weighted average) of 14Oap;E_{cm} [MeV];XS [mb]");
+    g_weightedxsAll->SetTitle("Total Cross Section (weighted average) of 14Oaa;E_{cm} [MeV];XS [mb]");
 
     auto g_xsGoodAll = GetAverage(g_xsGood, hisMainAll, hisMainError);
     auto g_sysErr = new TGraphErrors();
@@ -122,11 +122,11 @@ void macro_14O(bool isGoodEvents = false, bool isSubtractBG = true)
     hisBAll->SetLineColor(kMagenta); hisBAll->Draw("HIST SAME");
 
     auto *leg = new TLegend(0.1,0.6,0.4,0.9);
-    leg->AddEntry(hisMainAll, "14Oap", "l");
+    leg->AddEntry(hisMainAll, "14Oaa", "l");
     leg->AddEntry(hisBGAll, "14OCO2", "l");
-    leg->AddEntry(hisNAll, "14Nap", "l");
+    leg->AddEntry(hisNAll, "14Naa", "l");
     leg->AddEntry(hisNBAll, "14NCO2", "l");
-    leg->AddEntry(hisBAll, "14OCO2+14Nap-14NCO2", "l");
+    leg->AddEntry(hisBAll, "14OCO2+14Naa-14NCO2", "l");
     leg->Draw();
     SaveBatch(cvs_xs);
 
@@ -137,7 +137,7 @@ void macro_14O(bool isGoodEvents = false, bool isSubtractBG = true)
     hisBAll->Draw("HIST same");
     hisAll->SetFillColor(9); hisAll->SetFillStyle(3003); hisAll->Draw("HIST same");
     auto *leg2 = new TLegend(0.15,0.7,0.3,0.88);
-    leg2->AddEntry(hisMainAll, "^{14}O(#alpha,p)", "l");
+    leg2->AddEntry(hisMainAll, "^{14}O(#alpha,#alpha)", "l");
     leg2->AddEntry(hisBAll, "Background", "l");
     leg2->AddEntry(hisAll, "Net", "l");
     leg2->Draw();
@@ -150,23 +150,23 @@ void macro_14O(bool isGoodEvents = false, bool isSubtractBG = true)
     auto *leg3 = new TLegend(0.15,0.6,0.3,0.88);
     leg3->AddEntry(hisBAll, "Background", "l");
     leg3->AddEntry(hisBGAll, "^{14}O+CO_{2}", "l");
-    leg3->AddEntry(hisNAll, "^{14}N(#alpha,p)", "l");
+    leg3->AddEntry(hisNAll, "^{14}N(#alpha,#alpha)", "l");
     leg3->AddEntry(hisNBAll, "^{14}N+CO_{2}", "l");
     leg3->Draw();
 
-    ofstream outtxt("results/totxs_14Oap.txt");
+    ofstream outtxt("results/totxs_14Oaa.txt");
     for (int i=0; i<g_xsAll->GetN(); i++)
         outtxt << g_xsAll->GetPointX(i) << "\t" << g_xsAll->GetPointY(i) << "\t"
                << g_xsAll->GetErrorX(i) << "\t" << g_xsAll->GetErrorY(i) << endl;
     outtxt.close();
 
     auto g = g_xsAll;
-    outtxt.open("totxs/totxs_14Oap.txt");
+    outtxt.open("totxs/totxs_14Oaa.txt");
     for (int i=0; i<g->GetN(); i++)
         outtxt << g->GetPointX(i) << "\t" << g->GetPointY(i) << "\t"
             << g->GetErrorX(i) << "\t" << g->GetErrorY(i) << endl;
     outtxt.close();
-    outtxt.open("totxs/totxs_14Oap_sysErr.txt");
+    outtxt.open("totxs/totxs_14Oaa_sysErr.txt");
     for (int i=0; i<g_sysErr->GetN(); i++)
         outtxt << g_sysErr->GetPointX(i) << "\t" << g_sysErr->GetPointY(i) << "\t"
             << g_sysErr->GetErrorX(i) << "\t" << g_sysErr->GetErrorY(i) << endl;

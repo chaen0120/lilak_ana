@@ -1,0 +1,17 @@
+#################################################################################################
+*LKRun/DataPath {lilak_data}
+#################################################################################################
+persistency/
+    EventHeader true
+    EventEnder  true
+    RawData     false
+    BeamHeader  false 
+    HitCenter   false 
+    HitLStrip   false 
+    HitLChain   false 
+    HitRStrip   false 
+    HitRChain   false 
+    HitOthers   false 
+    Track       true 
+    BeamTrack   true 
+#################################################################################################

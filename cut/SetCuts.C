@@ -893,6 +893,44 @@ void ReadCut(TCutG **cutE, TString AorZ, TString type)
     }
 }
 
+void ReadCutEcm(TCutG **cutE, TString type)
+{
+    int length = type.Length();
+    cout << Form("cut/cutEcm_%s.txt",type.Remove(5,length-5).Data()) << endl;
+    ifstream intxt(Form("cut/cutEcm_%s.txt",type.Data()));
+    double cut[40][25][2];
+    int Det, Energy;
+    double rawcut[4];
+    if(!intxt.is_open()) { cout << "No such file" << endl; return; }
+    while (intxt >> Det >> Energy >> rawcut[0] >> rawcut[1])
+    {
+        cut[Det][Energy][0] = rawcut[0];
+        cut[Det][Energy][1] = rawcut[1];
+    }
+
+    double spare[2] = { 0.1, 0.1 };
+    for (int iDet=0; iDet<40; iDet++)
+    {
+        cutE[iDet] = new TCutG(Form("cutEcm%d",iDet));
+        cutE[iDet]->SetLineColor(kRed);
+        for (int iEne = 0; iEne < 25; iEne++)
+            if (cut[iDet][iEne][0] > 0)
+                cutE[iDet]->SetPoint(cutE[iDet]->GetN(), cut[iDet][iEne][0] - spare[0], iEne + 0.5);
+        for (int iEne = 24; iEne > -1; iEne--)
+            if (cut[iDet][iEne][1] > 0)
+                cutE[iDet]->SetPoint(cutE[iDet]->GetN(), cut[iDet][iEne][1] + spare[1], iEne + 0.5);
+        for (int iEne = 0; iEne < 25; iEne++)
+            if (cut[iDet][iEne][0] > 0)
+            { cutE[iDet]->SetPoint(cutE[iDet]->GetN(), cut[iDet][iEne][0] - spare[0], iEne + 0.5); break; }
+
+        if (type[4]=='a' && iDet<10)
+        {
+            cutE[iDet]->SetPoint((cutE[iDet]->GetN()-1)/2,cut[iDet][24][0]-spare[0], 35.5);
+            cutE[iDet]->SetPoint((cutE[iDet]->GetN()-1)/2+1,cut[iDet][24][1]+spare[1], 35.5);
+        }
+    }
+}
+
 void MoveCut(TCutG **cut, double shift)
 {
     for (int iDet=0; iDet<40; iDet++)

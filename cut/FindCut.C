@@ -306,9 +306,9 @@ void MakeCut2()
     }
 
     TH2D *his_angle[40];
-    TFile *fin = new TFile("FindCut_14Oap.root");
+    TFile *fin = new TFile("FindCut_14Oaa.root");
     for(int i=0; i<40; i++)
-        his_angle[i] = (TH2D*) fin -> Get(Form("his_EdvsSA_%d",i));
+        his_angle[i] = (TH2D*) fin -> Get(Form("his_EdvsSZEcm_%d",i));
 
     double thres = 1;
     double AMinMax[40][25][2]; //[det][energy][min/max]
@@ -337,8 +337,8 @@ void MakeCut2()
             }
             if (AMin != -1 && AMax != -1)
             {
-                AMinMax[iDet][Edet - 1][0] = AMin - 2;
-                AMinMax[iDet][Edet - 1][1] = AMax + 10;
+                AMinMax[iDet][Edet - 1][0] = AMin - 0.1;
+                AMinMax[iDet][Edet - 1][1] = AMax + 0.1;
             }
 
             if (AMinMax[iDet][Edet - 1][0] == 0)
@@ -354,8 +354,8 @@ void MakeCut2()
         for (int iEne = 0; iEne < 25; iEne++) {
             outtxt << iDet << "\t" << iEne << "\t";
             outtxt << AMinMax[iDet][iEne][0] << "\t" << AMinMax[iDet][iEne][1] << "\t";
-            g[iDet]->SetPoint(iEne, AMinMax[iDet][iEne][0] - 2, iEne);
-            g[iDet]->SetPoint(49 - iEne, AMinMax[iDet][iEne][1] + 2, iEne);
+            g[iDet]->SetPoint(iEne, AMinMax[iDet][iEne][0] - 0.2, iEne);
+            g[iDet]->SetPoint(49 - iEne, AMinMax[iDet][iEne][1] + 0.2, iEne);
             outtxt << endl;
         }
     }
@@ -384,14 +384,14 @@ void DrawCut2()
     }
 
     TH2D *his_angle[2][40];
-    TFile *fin = new TFile("FindCut_14Oap.root");
+    TFile *fin = new TFile("FindCut_14Oaa.root");
     for (int i = 0; i < 40; i++)
     {
-        his_angle[0][i] = (TH2D *)fin->Get(Form("his_EdvsSA_%d", i));
-        his_angle[1][i] = (TH2D *)fin->Get(Form("his_EdvsTA_%d", i));
+        his_angle[0][i] = (TH2D *)fin->Get(Form("his_EdvsSZEcm_%d", i));
+        his_angle[1][i] = (TH2D *)fin->Get(Form("his_EdvsTZEcm_%d", i));
     }
 
-    ifstream intxt("cutEA_14Oap.txt");
+    ifstream intxt("cutEcm_14Oaa.txt");
     double cut[40][25][2]; //[det][energy][min/max]
     int Det, Energy;
     double tcut[4];

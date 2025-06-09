@@ -6,6 +6,7 @@ vector<double> rmb, tmb, t01mb;
 const double Na = 6.022E23; // mol^-1
 const double k = 1/11.6045; // MeV/GK
 const double mu = 2898.5 * 9E-20; // MeV
+const double sibal = 3.7335E10 / sqrt(3.113);
 
 const double Tmin = 0.2; // GK
 const double Tmax = 10; // GK
@@ -14,6 +15,7 @@ const double Tstep = 0.01; // GK
 double Rate(double T, TString mode)
 {
     double prefactor = sqrt(8.0 / TMath::Pi() / mu) / pow(k * T, 1.5);
+    prefactor = sibal / pow(T, 1.5);
     double integral = 0;
 
     vector<double> *Ecm;
@@ -100,6 +102,21 @@ void ReacRate(bool isDraw = true)
         gRes->SetPointError(i, 0.05, (expXSerr1[i] + expXSerr2[i]) * 1E27);
     }
 
+    // AZURE
+    fin.open("../totxs/AZUREOut_14Oap.txt.new");
+    auto *gXSAZURE = new TGraph();
+    gXSAZURE->SetLineColor(kMagenta);
+    gXSAZURE->SetLineWidth(3);
+    while (fin >> t1 >> t2)
+        gXSAZURE->SetPoint(gXSAZURE->GetN(), t1, t2 * 1000); //cm^2
+    for (int i=0; i<gXSAZURE->GetN(); i++)
+    {
+        double x, y;
+        gXSAZURE->GetPoint(i, x, y);
+        cout << y << endl;
+    }
+    fin.close();
+
     // TALYS; total
     fin.open("talys/ap.tot");
     while (getline(fin, line))
@@ -113,7 +130,7 @@ void ReacRate(bool isDraw = true)
     }
     fin.close();
     auto *gXStot = new TGraph(tEcm.size(), tEcm.data(), tmb.data());
-    gXStot->SetLineColor(kMagenta);
+    gXStot->SetLineColor(kBlue);
     gXStot->SetLineWidth(3);
 
     // TALYS; p0 + p1
@@ -185,7 +202,7 @@ void ReacRate(bool isDraw = true)
 
     // AZURE
     auto *gAZURE = new TGraph("AZURE.out");
-    gAZURE->SetLineColor(kBlue);
+    gAZURE->SetLineColor(kMagenta);
     gAZURE->SetLineWidth(3);
     //gAZURE->SetLineStyle(kDotted);
 
@@ -196,10 +213,12 @@ void ReacRate(bool isDraw = true)
     //gReaclib->SetLineStyle(kDotted);
 
     // TALYS
-    auto *gTALYS = new TGraph();
-    gTALYS->SetLineColor(kMagenta+1);
+    auto *gTALYS = new TGraphAsymmErrors();
+    gTALYS->SetLineColor(kBlue);
     gTALYS->SetLineWidth(3);
-    fin.open("talys/astrorate.p");
+    gTALYS->SetFillColor(kBlue);
+    gTALYS->SetFillStyle(3002);
+    fin.open("talys/astrorate/astrorate.p1");
     while (getline(fin, line))
     {
         if (line.empty() || line[0] == '#') continue;
@@ -208,13 +227,38 @@ void ReacRate(bool isDraw = true)
         gTALYS->SetPoint(gTALYS->GetN(), t1, t2);
     }
     fin.close();
+    vector<double> min(gTALYS->GetN()), max(gTALYS->GetN());
+    for (int i=0; i<gTALYS->GetN(); i++)
+    {
+        gTALYS->GetPoint(i, t1, t2);
+        min[i] = t2;
+        max[i] = t2;
+    }
+    for (int i : {2, 5, 7})
+    {
+        fin.open(Form("talys/astrorate/astrorate.p%d",i));
+        while (getline(fin, line))
+        {
+            if (line.empty() || line[0] == '#') continue;
+            istringstream iss(line);
+            iss >> t1 >> t2 >> t3 >> t4;
+            if (t2 < min[i]) min[i] = t2;
+            if (t2 > max[i]) max[i] = t2;
+        }
+        fin.close();
+    }
+    for (int i=0; i<gTALYS->GetN(); i++)
+    {
+        gTALYS->GetPoint(i, t1, t2);
+        gTALYS->SetPointError(i, 0.5, 0.5, t2-min[i], max[i]-t2);
+    }
 
     // Calculate
     auto *gRate = new TGraph();
     gRate->SetLineColor(kBlack);
     gRate->SetLineWidth(3);
     auto *gRateTot = new TGraph();
-    gRateTot->SetLineColor(kMagenta);
+    gRateTot->SetLineColor(kBlue);
     gRateTot->SetLineWidth(3);
     auto *gExpRate = new TGraph();
     gExpRate->SetFillColor(kGreen+1);
@@ -248,7 +292,7 @@ void ReacRate(bool isDraw = true)
     else
     {
         TRandom3 rng(0);
-        int iter = 6E5;
+        int iter = 6E4;
         auto *hMExpRate = new TH2D("hMExpRate", "hMExpRate", (Tmax - Tmin) / Tstep + 1, Tmin, Tmax, 1000, -15, 6);
         for (int i = 0; i < iter; i++)
         {
@@ -262,6 +306,11 @@ void ReacRate(bool isDraw = true)
                 if (first) { start = iE; first = false; }
                 auto newXS = AsymGaus(rng, expXS[iE - start], expXSerr1[iE - start] + expXSerr2[iE - start], expXSerr1[iE - start]);
                 rXS[iE] = newXS;
+                //if (rEcm[iE] < 10) continue;
+                //auto random = rng.Uniform(1,2);
+                //auto random2 = rng.Uniform(-1,1);
+                //if (random2 > 0) rEcm[iE] *= random;
+                //else rEcm[iE] /= random;
             }
 
             for (double T = Tmin; T < Tmax; T += Tstep) // GK
@@ -341,11 +390,13 @@ void ReacRate(bool isDraw = true)
     gXStot->Draw("Lsame");
     gXSscale->Draw("Lsame");
     gRes->Draw("xLsame");
+    gXSAZURE->Draw("Lsame");
     gRes->Draw("e3same");
 
-    auto *leg1 = new TLegend(0.7, 0.15, 0.88, 0.3);
+    auto *leg1 = new TLegend(0.7, 0.15, 0.88, 0.32);
     leg1->AddEntry(gXStot, "TALYS (total)", "l");
     leg1->AddEntry(gXS, "TALYS (p0+p1)", "l");
+    leg1->AddEntry(gXSAZURE, "AZURE", "l");
     leg1->AddEntry(gRes, "Exp. + TALYS", "lf");
     leg1->Draw();
 
@@ -366,11 +417,11 @@ void ReacRate(bool isDraw = true)
     gRateTot->Draw("Csame");
     gReaclib->Draw("Csame");
     gAZURE->Draw("Csame");
-    //gTALYS->Draw("Csame");
+    //gTALYS->Draw("CE3same");
     gExpRate->Draw("Csame");
     gMExpRate->Draw("e3same");
 
-    auto *leg2 = new TLegend(0.7, 0.15, 0.88, 0.4);
+    auto *leg2 = new TLegend(0.7, 0.15, 0.88, 0.35);
     leg2->AddEntry(gRateTot, "TALYS (total)", "l");
     leg2->AddEntry(gRate, "TALYS (p0+p1)", "l");
     //leg2->AddEntry(gTALYS, "TALYS (rate)", "l");

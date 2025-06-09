@@ -1,112 +1,34 @@
-#include "macro_14O.C"
+#include "macro_14Oaa.C"
 #include "macros/drawGamow.C"
-void p0p1();
 void DrawAngleVertex();
 void DrawSFactor();
 
-void RunAll(bool VertexEcm = false)
+void RunAllalpha(bool VertexEcm = false)
 {
     if (VertexEcm) { // vertex mode
         IsVertexEcm = true;
         gROOT->SetBatch(true);
-        macro_ana("14Oap");
-        macro_ana("14OCO2p");
-        macro_ana("14Oap_14N");
-        macro_ana("14OCO2p_14N");
+        macro_alpha("14Oaa");
+        macro_alpha("14OCO2a");
+        macro_alpha("14Oaa_14N");
+        macro_alpha("14OCO2a_14N");
         gROOT->SetBatch(false);
-        macro_14O();
+        macro_14Oaa();
+        //gSystem->Exec("mv totxs/totxs_14Oap.txt totxs/totxs_14Oap_v.txt");
+        //gSystem->Exec("mv totxs/totxs_14Oap_sysErr.txt totxs/totxs_14Oap_sysErr_v.txt");
     }
     else { // angle mode
         IsVertexEcm = false;
         gROOT->SetBatch(true);
-        gSystem->Exec("cd ana; ./p0.sh; cd ..");
-        macro_ana("14Oap");
-        macro_ana("14OCO2p");
-        macro_ana("14Oap_14N");
-        macro_ana("14OCO2p_14N");
-        macro_14O();
-        gSystem->Exec("mv totxs/totxs_14Oap.txt temp_14Oap0.txt");
-        gSystem->Exec("mv totxs/totxs_14Oap_sysErr.txt temp_14Oap0_sysErr.txt");
-
-        gSystem->Exec("cd ana; ./p1.sh; cd ..");
-        macro_ana("14Oap");
-        macro_ana("14OCO2p");
-        macro_ana("14Oap_14N");
-        macro_ana("14OCO2p_14N");
-        macro_14O();
-        gSystem->Exec("mv totxs/totxs_14Oap.txt temp_14Oap1.txt");
-        gSystem->Exec("mv totxs/totxs_14Oap_sysErr.txt temp_14Oap1_sysErr.txt");
+        macro_alpha("14Oaa");
+        macro_alpha("14OCO2a");
+        macro_alpha("14Oaa_14N");
+        macro_alpha("14OCO2a_14N");
         gROOT->SetBatch(false);
-
-        p0p1();
+        macro_14Oaa();
+        //gSystem->Exec("mv totxs/totxs_14Oap.txt totxs/totxs_14Oap_a.txt");
+        //gSystem->Exec("mv totxs/totxs_14Oap_sysErr.txt totxs/totxs_14Oap_sysErr_a.txt");
     }
-}
-void p0p1()
-{
-    ifstream fin;
-    double e, xs, de, dxs;
-    fin.open("temp_14Oap0.txt");
-    vector<double> e0, xs0, de0, dxs0;
-    while (fin >> e >> xs >> de >> dxs)
-    {
-        e0.push_back(e);
-        xs0.push_back(xs);
-        de0.push_back(de);
-        dxs0.push_back(dxs);
-    }
-    fin.close();
-    fin.open("temp_14Oap1.txt");
-    vector<double> e1, xs1, de1, dxs1;
-    while (fin >> e >> xs >> de >> dxs)
-    {
-        e1.push_back(e);
-        xs1.push_back(xs);
-        de1.push_back(de);
-        dxs1.push_back(dxs);
-    }
-    fin.close();
-    fin.open("temp_14Oap0_sysErr.txt");
-    vector<double> dsxs0;
-    while (fin >> e >> xs >> de >> dxs)
-    {
-        dsxs0.push_back(dxs);
-    }
-    fin.close();
-    fin.open("temp_14Oap1_sysErr.txt");
-    vector<double> dsxs1;
-    while (fin >> e >> xs >> de >> dxs)
-    {
-        dsxs1.push_back(dxs);
-    }
-    fin.close();
-    gSystem->Exec("rm temp_14Oap*.txt");
-
-    double Ecm[nBins], XS[nBins], dEcm[nBins], dXS[nBins], sXS[nBins], dsXS[nBins];
-    for (int iE=0; iE<nBins; iE++)
-    {
-        Ecm[iE] = e0[iE];
-        dEcm[iE] = (de0[iE] + de1[iE]) / 2;
-        XS[iE] = (xs0[iE] + xs1[iE]) / 2;
-        auto stat = sqrt(dxs0[iE]*dxs0[iE] + dxs1[iE]*dxs1[iE]) / 2;
-        auto syst = fabs(xs0[iE] - xs1[iE]) / 2;
-        dXS[iE] = sqrt(stat*stat + syst*syst);
-        dsXS[iE] = sqrt(dsxs0[iE]*dsxs0[iE] + dsxs1[iE]*dsxs1[iE]) / 2;
-        sXS[iE] = XS[iE] - dXS[iE] - dsXS[iE];
-
-        if (Ecm[iE] < 0.5 || Ecm[iE] > 3.6) continue; // filter out invalid data
-        cout << Form("%.2f",Ecm[iE]) << "\t& " << Form("%.2e",XS[iE]) << "\t& " << Form("%.2e",dXS[iE]) << "\t&" << Form("%.2e",stat) << "\t& " << Form("%.2e",dsXS[iE]) << "\t& " << Form("%.2e",syst) << "\t\\\\ \\hline" << endl;
-    }
-
-    ofstream fout;
-    fout.open("totxs/totxs_14Oap_a.txt");
-    for (int iE=0; iE<nBins; iE++)
-        fout << Ecm[iE] << "\t" << XS[iE] << "\t" << dEcm[iE] << "\t" << dXS[iE] << endl;
-    fout.close();
-    fout.open("totxs/totxs_14Oap_sysErr_a.txt");
-    for (int iE=0; iE<nBins; iE++)
-        fout << Ecm[iE] << "\t" << sXS[iE] << "\t" << 0 << "\t" << dsXS[iE] << endl;
-    fout.close();
-    draw_cs();
 }
 
 void DrawAngleVertex()
@@ -132,7 +54,7 @@ void DrawAngleVertex()
         dsxsa.push_back(dxs);
     }
     fin.close();
-    fin.open("totxs/totxs_14Oap.txt");
+    fin.open("totxs/totxs_14Oap_v.txt");
     vector<double> ev, xsv, dev, dxsv;
     while (fin >> e >> xs >> de >> dxs)
     {
@@ -143,7 +65,7 @@ void DrawAngleVertex()
         dxsv.push_back(dxs);
     }
     fin.close();
-    fin.open("totxs/totxs_14Oap_sysErr.txt");
+    fin.open("totxs/totxs_14Oap_sysErr_v.txt");
     vector<double> dsxsv;
     while (fin >> e >> xs >> de >> dxs)
     {
