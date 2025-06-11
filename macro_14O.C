@@ -16,10 +16,10 @@ void macro_14O(bool isGoodEvents = false, bool isSubtractBG = true)
     nBeam = nBeam14Oa;
 
     SetOthers();
-    GetEfficiency(effMain, nEcmMain, "proton");
-    GetEfficiency(effBG, nEcmBG, "CO2_proton");
-    GetEfficiency(effN, nEcmN, "Nproton");
-    GetEfficiency(effNB, nEcmNB, "Nproton"); //XXX
+    GetEfficiency(effMain, nEcmMain, "proton_uniso");
+    GetEfficiency(effBG, nEcmBG, "proton_uniso");
+    GetEfficiency(effN, nEcmN, "proton_uniso");
+    GetEfficiency(effNB, nEcmNB, "proton_uniso"); //XXX
 
     // Init histograms
     TH1D *hisMainAll     = new TH1D("hisMainAll", Form("Yield;E_{cm}[MeV]; Counts / %d",(int)(binSize*1000)), nBins, minEcm, maxEcm);

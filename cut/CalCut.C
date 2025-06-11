@@ -12,9 +12,9 @@ void CalCut()
 {
     auto *run = new LKRun();
     auto *tt = new TexAT2();
-    run->AddPar("./config/config_common.mac");
-    run->AddPar("./config/config_reco.mac");
-    run->AddPar("./config/config_ana.mac");
+    run->AddPar("../config/config_common.mac");
+    run->AddPar("../config/config_reco.mac");
+    run->AddPar("../config/config_ana.mac");
     run->AddDetector(tt);
     run->Add(ana);
     run->Init();
@@ -44,7 +44,7 @@ void CalCut()
                           1.575, 1.537, 1.465, 1.525, 1.471, 1.423, 1.491, 1.563};
     TCutG *cuts[40]; SetCutP(cuts);
 
-    auto *fin = new TFile("../ana/alpha/ana_14Oaa.root");
+    auto *fin = new TFile("../ana/p0/ana_14Oap.root");
     auto *tree = (TTree*) fin->Get("event");
     auto nEvts = tree->GetEntries();
 
@@ -83,15 +83,15 @@ void CalCut()
         if (cuts[iDet] != nullptr && !cuts[iDet]->IsInside(Edet, dEdx)) continue;
         auto SiHit = end->GetSiHit();
         double SiA = -1, SiZ = -1, SiEcm = -1;
-        ThickTargetAnalysis(0, SiHit, Edet, iAlpha, i14O, SiA, SiZ, SiEcm);
+        ThickTargetAnalysis(0, SiHit, Edet, iProton, i14O, SiA, SiZ, SiEcm);
         //his_EdvsSA[iDet]->Fill(SiA, Edet);
         //his_EdvsSZ[iDet]->Fill(SiZ, Edet);
         his_EdvsSZEcm[iDet]->Fill(SiEcm, Edet);
-        ThickTargetAnalysis(1, SiHit, Edet, iAlpha, i14O, SiA, SiZ, SiEcm);
+        ThickTargetAnalysis(1, SiHit, Edet, iProton, i14O, SiA, SiZ, SiEcm);
         //his_EdvsSA[iDet]->Fill(SiA, Edet);
         //his_EdvsSZ[iDet]->Fill(SiZ, Edet);
         his_EdvsSZEcm[iDet]->Fill(SiEcm, Edet);
-        ThickTargetAnalysis(2, SiHit, Edet, iAlpha, i14O, SiA, SiZ, SiEcm);
+        ThickTargetAnalysis(2, SiHit, Edet, iProton, i14O, SiA, SiZ, SiEcm);
         //his_EdvsSA[iDet]->Fill(SiA, Edet);
         //his_EdvsSZ[iDet]->Fill(SiZ, Edet);
         his_EdvsSZEcm[iDet]->Fill(SiEcm, Edet);

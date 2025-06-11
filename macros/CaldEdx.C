@@ -149,9 +149,9 @@ void CaldEdx()
     auto *run = new LKRun();
     auto *tt = new TexAT2();
     auto *ana = new TTAnalysisTask();
-    run->AddPar("/home/cens-alpha-00/lilak/texat_ana/temp_reco/config/config_common.mac");
-    run->AddPar("/home/cens-alpha-00/lilak/texat_ana/temp_reco/config/config_reco.mac");
-    run->AddPar("/home/cens-alpha-00/lilak/texat_ana/temp_reco/config/config_ana.mac");
+    run->AddPar("../config/config_common.mac");
+    run->AddPar("../config/config_reco.mac");
+    run->AddPar("../config/config_ana.mac");
     run->AddDetector(tt);
     run->Add(ana);
     run->Init();
@@ -167,7 +167,7 @@ void CaldEdx()
     auto fEZ = new TF1("fEZ", "pol7", 0, 9);
     fEZ->SetParameters(375.415, -72.9445, 45.3516, -22.2208, 5.69877, -0.805735, 0.0589968, -0.0017465);
 
-    TH2D *his_dEdx = new TH2D("his_dEdx", "his_dEdx;Edet;dEdx", 190, 1, 20, 200, 0, 0.005);
+    TH2D *his_dEdx = new TH2D("his_dEdx", "his_dEdx;Edet;dEdx", 190, 1, 20, 200, 0, 0.05);
     for (int iDet : {0, 6, 7, 8, 9,
                      11, 12, 13, 14, 15, 16, 17,
                      101, 102, 103, 104, 105, 106, 107, 108,
@@ -221,8 +221,9 @@ void CaldEdx()
                 auto angle = si.Angle(vertex);
                 auto length = (si - vertex).Mag();
 
-                auto Elab = CMtoLab(Ecm, angle, iProton, i14O);
-                auto Edet = ApplyEnergyLoss(Elab, length, iProton);
+                auto Elab = CMtoLab(Ecm, angle, iAlpha, i14O);
+                cout << Ecm << " " << Elab << endl;
+                auto Edet = ApplyEnergyLoss(Elab, length, iAlpha);
                 auto dEdx = (Elab - Edet) / length;
                 his_dEdx->Fill(Edet, dEdx);
             }
@@ -245,7 +246,7 @@ double CMtoLab(double ene, double angle, int light, int beam)
     Mbeam = Mass[beam];
     Mtarget = Mass[iAlpha];
     if (light == iAlpha) // Scattering
-        Edet = ene * (Mbeam + Mtarget) / (4 * Mbeam * cos * cos);
+        Edet = ene / Mtarget * (Mbeam + Mtarget) * (Mbeam + Mtarget) / (4 * Mbeam * cos * cos);
     else // (a,p) reaction
     {
         Mlight = 1.00782;

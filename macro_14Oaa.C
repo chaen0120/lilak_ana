@@ -6,7 +6,7 @@ TH1D *hisMainraw[40], *hisBGraw[40], *hisNraw[40], *hisNBraw[40], *hisGoodraw[40
 TH1D *hisMainError, *hisMainwEError;
 TGraphErrors *g_xs[40], *g_xsGood[40], *g_sysError[40];
 
-void macro_14O(bool isGoodEvents = false, bool isSubtractBG = true)
+void macro_14Oaa(bool isGoodEvents = false, bool isSubtractBG = true)
 {
     // Init
     cout << "isGoodEvents = " << isGoodEvents << ", isSubtractBG = " << isSubtractBG << endl;
@@ -17,7 +17,7 @@ void macro_14O(bool isGoodEvents = false, bool isSubtractBG = true)
 
     SetOthers();
     GetEfficiency(effMain, nEcmMain, "alpha");
-    GetEfficiency(effBG, nEcmBG, "CO2_alpha");
+    GetEfficiency(effBG, nEcmBG, "alpha");
     GetEfficiency(effN, nEcmN, "Nalpha");
     GetEfficiency(effNB, nEcmNB, "Nalpha"); //XXX
 
@@ -301,10 +301,10 @@ TGraphErrors *GetCrossSection(bool IsGoodAna, int iDet)
         if (isnan(scaleNB  )) scaleNB   = 0;
 
         // xs
-        double xsMain = yieldMain / nBeam14Oa / target     / effMain[iDet][iE-1]* 1E+27; //[mb]
-        double xsBG   = yieldBG   / nBeam14OC / target/2.1 / effBG  [iDet][iE-1]* 1E+27; //[mb]
-        double xsN    = yieldN    / nBeam14Na / target     / effMain[iDet][iE-1]* 1E+27; //[mb]
-        double xsNB   = yieldNB   / nBeam14NC / target/2.1 / effBG  [iDet][iE-1]* 1E+27; //[mb]
+        double xsMain = yieldMain / nBeam14Oa / target     / (effMain[iDet][iE-1] * 4 * TMath::Pi())* 1E+27; //[mb]
+        double xsBG   = yieldBG   / nBeam14OC / target/2.1 / (effBG  [iDet][iE-1] * 4 * TMath::Pi())* 1E+27; //[mb]
+        double xsN    = yieldN    / nBeam14Na / target     / (effMain[iDet][iE-1] * 4 * TMath::Pi())* 1E+27; //[mb]
+        double xsNB   = yieldNB   / nBeam14NC / target/2.1 / (effBG  [iDet][iE-1] * 4 * TMath::Pi())* 1E+27; //[mb]
         double xs = xsMain - xsBG - xsN + xsNB;
 
         // stat. error

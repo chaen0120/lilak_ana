@@ -66,7 +66,9 @@ void CalEff()
 void GetEff()
 {
     auto run = new LKRun();
-    run->AddPar("config_common.mac");
+    run->AddPar("../config/config_common.mac");
+    run->AddPar("../config/config_reco.mac");
+    run->AddPar("../config/config_ana.mac");
     run->AddDetector(tt);
     run->Add(ta);
     run->Init();

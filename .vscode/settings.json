@@ -1,0 +1,33 @@
+{
+    "files.associations": {
+        "GetSolidAngle.C": "cpp",
+        "macro_ana.C": "cpp",
+        "draw_cs.C": "cpp",
+        "macro_14O.C": "cpp",
+        "CaldEdx.C": "cpp",
+        "test.C": "cpp",
+        "fit.C": "cpp",
+        "BeamRes.C": "cpp",
+        "Beam.C": "cpp",
+        "BeamRes2.C": "cpp",
+        "RunAll.C": "cpp",
+        "drawGamow.C": "cpp",
+        "ReacRate.C": "cpp",
+        "cvs.C": "cpp",
+        "draw.C": "cpp",
+        "macro_p0p1.C": "cpp",
+        "RunAllp0p1.C": "cpp",
+        "SetCuts.C": "cpp",
+        "FindCut.C": "cpp",
+        "NewTTIK.C": "cpp",
+        "run_TTIK.C": "cpp",
+        "macro_res.C": "cpp",
+        "CalCut.C": "cpp",
+        "macro_alpha.C": "cpp",
+        "RunAllalpha.C": "cpp",
+        "macro_14Oaa.C": "cpp",
+        "TrackingEff.C": "cpp",
+        "CalPStraggling.C": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
+}

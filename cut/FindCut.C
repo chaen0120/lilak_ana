@@ -384,14 +384,14 @@ void DrawCut2()
     }
 
     TH2D *his_angle[2][40];
-    TFile *fin = new TFile("FindCut_14Oaa.root");
+    TFile *fin = new TFile("FindCut_Ecm_14Oap.root");
     for (int i = 0; i < 40; i++)
     {
         his_angle[0][i] = (TH2D *)fin->Get(Form("his_EdvsSZEcm_%d", i));
         his_angle[1][i] = (TH2D *)fin->Get(Form("his_EdvsTZEcm_%d", i));
     }
 
-    ifstream intxt("cutEcm_14Oaa.txt");
+    ifstream intxt("cutEcm_14Oap.txt");
     double cut[40][25][2]; //[det][energy][min/max]
     int Det, Energy;
     double tcut[4];

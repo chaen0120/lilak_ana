@@ -1,4 +1,4 @@
-#include "macro_ana.h"
+#include "macro_ana.C"
 
 void macro_alpha(TString type = "14Oaa")
 {
@@ -132,6 +132,7 @@ void macro_alpha(TString type = "14Oaa")
         auto TPCEcm = ender->GetpEcm();
         if (reac == 'a') TPCEcm = ender->GetaEcm();
         auto TPCAlab = ender->GetAlab();
+        if (180 - 2*TPCAlab > 136 && 180 - 2*TPCAlab < 174) continue;
         auto TPCvert = ender->GetVertex();
         auto TPCLen = (SiPos - TPCvert).Mag();
 
@@ -232,10 +233,6 @@ void macro_alpha(TString type = "14Oaa")
             his_Error[5]->Fill(errTh , EcmFill);
         }
     }
-    auto *foutfile = new TFile("EpVSEcmZ_nocut.root","recreate");
-    for (int i=0; i<40; i++) his_EdvsTZEcm[i]->Write();
-    for (int i=0; i<40; i++) his_EdvsSZEcm[i]->Write();
-    foutfile->Close();
 
     //FindCut();
     //Simulation();

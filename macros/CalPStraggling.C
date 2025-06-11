@@ -11,9 +11,9 @@ void CalPStraggling()
     auto *run = new LKRun();
     auto *tt = new TexAT2();
     auto *ana = new TTAnalysisTask();
-    run->AddPar("/home/cens-alpha-00/lilak/texat_ana/temp_reco/config/config_common.mac");
-    run->AddPar("/home/cens-alpha-00/lilak/texat_ana/temp_reco/config/config_reco.mac");
-    run->AddPar("/home/cens-alpha-00/lilak/texat_ana/temp_reco/config/config_ana.mac");
+    run->AddPar("../config/config_common.mac");
+    run->AddPar("../config/config_reco.mac");
+    run->AddPar("../config/config_ana.mac");
     run->AddDetector(tt);
     run->Add(ana);
     run->Init();

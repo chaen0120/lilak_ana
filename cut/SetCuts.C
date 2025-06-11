@@ -328,11 +328,11 @@ void SetCutP(TCutG **cutP)
     cutP[11] = new TCutG("cutP12", 8);
     cutP[11]->SetLineColor(kRed);
     cutP[11]->SetPoint(0, 1.51146, 744.737);
-    cutP[11]->SetPoint(1, 6.3467, 597.368); 
+    cutP[11]->SetPoint(1, 6.3467, 597.368);
     cutP[11]->SetPoint(2, 12.5788, 428.947);
     cutP[11]->SetPoint(3, 13.2593, 286.842);
     cutP[11]->SetPoint(4, 6.70487, 213.158);
-    cutP[11]->SetPoint(5, 2.51433, 250);    
+    cutP[11]->SetPoint(5, 2.51433, 250);
     cutP[11]->SetPoint(6, 1.26074, 371.053);
     cutP[11]->SetPoint(7, 1.51146, 744.737);
     // 13
@@ -550,264 +550,273 @@ void SetCutA(TCutG **cutA)
     // 0
     cutA[0] = new TCutG("cutA0", 8);
     cutA[0]->SetLineColor(kRed);
-    cutA[0]->SetPoint(0, 0.724772, 3217.49);
-    cutA[0]->SetPoint(1, 1.20144, 1893.62);
-    cutA[0]->SetPoint(2, 10.7348, 1515.37);
-    cutA[0]->SetPoint(3, 23.6048, 1066.19);
-    cutA[0]->SetPoint(4, 38.3815, 1089.83);
-    cutA[0]->SetPoint(5, 38.1431, 1633.57);
-    cutA[0]->SetPoint(6, 2.63144, 3430.26);
-    cutA[0]->SetPoint(7, 0.724772, 3217.49);
+    cutA[0]->SetPoint(0, 1.37536, 3142.11);
+    cutA[0]->SetPoint(1, 1.80516, 1552.63);
+    cutA[0]->SetPoint(2, 8.32378, 1163.16);
+    cutA[0]->SetPoint(3, 23.2951, 678.947);
+    cutA[0]->SetPoint(4, 34.6132, 700);
+    cutA[0]->SetPoint(5, 34.4699, 1247.37);
+    cutA[0]->SetPoint(6, 17.4212, 2678.95);
+    cutA[0]->SetPoint(7, 1.37536, 3142.11);
     // 6
-    cutA[6] = new TCutG("cutA6", 10);
+    cutA[6] = new TCutG("cutA6", 8);
     cutA[6]->SetLineColor(kRed);
-    cutA[6]->SetPoint(0, 1.02269, 2981.09);
-    cutA[6]->SetPoint(1, 1.02269, 1869.98);
-    cutA[6]->SetPoint(2, 8.41103, 1397.16);
-    cutA[6]->SetPoint(3, 25.3327, 1042.55);
-    cutA[6]->SetPoint(4, 38.2027, 1018.91);
-    cutA[6]->SetPoint(5, 38.2027, 1468.09);
-    cutA[6]->SetPoint(6, 19.851, 2248.23);
-    cutA[6]->SetPoint(7, 8.8877, 2910.17);
-    cutA[6]->SetPoint(8, 4.59769, 3075.65);
-    cutA[6]->SetPoint(9, 1.02269, 2981.09);
+    cutA[6]->SetPoint(0, 0.945558, 3131.58);
+    cutA[6]->SetPoint(1, 1.01719, 1100);
+    cutA[6]->SetPoint(2, 9.46991, 794.737);
+    cutA[6]->SetPoint(3, 24.298, 426.316);
+    cutA[6]->SetPoint(4, 36.4756, 615.789);
+    cutA[6]->SetPoint(5, 34.9713, 1405.26);
+    cutA[6]->SetPoint(6, 10.3295, 3036.84);
+    cutA[6]->SetPoint(7, 0.945558, 3131.58);
     // 7
     cutA[7] = new TCutG("cutA7", 8);
     cutA[7]->SetLineColor(kRed);
-    cutA[7]->SetPoint(0, 1.55894, 3004.73);
-    cutA[7]->SetPoint(1, 1.32061, 1704.49);
-    cutA[7]->SetPoint(2, 13.4756, 1255.32);
-    cutA[7]->SetPoint(3, 32.7806, 900.709);
-    cutA[7]->SetPoint(4, 33.2573, 1444.44);
-    cutA[7]->SetPoint(5, 17.289, 2366.43);
-    cutA[7]->SetPoint(6, 6.08728, 3170.21);
-    cutA[7]->SetPoint(7, 1.55894, 3004.73);
+    cutA[7]->SetPoint(0, 0.730659, 2942.11);
+    cutA[7]->SetPoint(1, 0.945558, 952.632);
+    cutA[7]->SetPoint(2, 8.53868, 710.526);
+    cutA[7]->SetPoint(3, 24.1547, 352.632);
+    cutA[7]->SetPoint(4, 34.6848, 415.789);
+    cutA[7]->SetPoint(5, 33.1805, 1426.32);
+    cutA[7]->SetPoint(6, 9.68481, 2794.74);
+    cutA[7]->SetPoint(7, 0.730659, 2942.11);
     // 8
     cutA[8] = new TCutG("cutA8", 7);
     cutA[8]->SetLineColor(kRed);
-    cutA[8]->SetPoint(0, 1.61852, 3122.93);
-    cutA[8]->SetPoint(1, 2.57186, 1964.54);
-    cutA[8]->SetPoint(2, 13.0585, 1373.52);
-    cutA[8]->SetPoint(3, 29.7419, 1089.83);
-    cutA[8]->SetPoint(4, 29.7419, 1728.13);
-    cutA[8]->SetPoint(5, 7.33853, 3099.29);
-    cutA[8]->SetPoint(6, 1.61852, 3122.93);
+    cutA[8]->SetPoint(0, 0.802292, 2942.11);
+    cutA[8]->SetPoint(1, 1.16046, 1057.89);
+    cutA[8]->SetPoint(2, 9.18338, 836.842);
+    cutA[8]->SetPoint(3, 27.5931, 615.789);
+    cutA[8]->SetPoint(4, 27.235, 1615.79);
+    cutA[8]->SetPoint(5, 12.1203, 2689.47);
+    cutA[8]->SetPoint(6, 0.802292, 2942.11);
     // 9
-    cutA[9] = new TCutG("cutA9", 9);
+    cutA[9] = new TCutG("cutA9", 8);
     cutA[9]->SetLineColor(kRed);
-    cutA[9]->SetPoint(0, 0.724772, 3122.93);
-    cutA[9]->SetPoint(1, 0.724772, 1964.54);
-    cutA[9]->SetPoint(2, 7.39811, 1491.73);
-    cutA[9]->SetPoint(3, 23.1281, 877.069);
-    cutA[9]->SetPoint(4, 32.4231, 829.787);
-    cutA[9]->SetPoint(5, 32.6615, 1349.88);
-    cutA[9]->SetPoint(6, 14.3098, 2248.23);
-    cutA[9]->SetPoint(7, 5.96811, 2957.45);
-    cutA[9]->SetPoint(8, 0.724772, 3122.93);
+    cutA[9]->SetPoint(0, 0.945558, 3036.84);
+    cutA[9]->SetPoint(1, 1.08882, 1142.11);
+    cutA[9]->SetPoint(2, 7.75072, 878.947);
+    cutA[9]->SetPoint(3, 18.9255, 542.105);
+    cutA[9]->SetPoint(4, 32.7507, 615.789);
+    cutA[9]->SetPoint(5, 31.533, 1384.21);
+    cutA[9]->SetPoint(6, 8.46705, 2805.26);
+    cutA[9]->SetPoint(7, 0.945558, 3036.84);
     // 11
-    cutA[10] = new TCutG("cutA11", 6);
+    cutA[10] = new TCutG("cutA11", 7);
     cutA[10]->SetLineColor(kRed);
-    cutA[10]->SetPoint(0, 0.903522, 3122.93);
-    cutA[10]->SetPoint(1, 0.903522, 1562.65);
-    cutA[10]->SetPoint(2, 21.1619, 900.709);
-    cutA[10]->SetPoint(3, 26.6435, 1491.73);
-    cutA[10]->SetPoint(4, 6.62353, 2839.24);
-    cutA[10]->SetPoint(5, 0.903522, 3122.93);
+    cutA[10]->SetPoint(0, 0.873925, 3194.74);
+    cutA[10]->SetPoint(1, 1.30372, 1121.05);
+    cutA[10]->SetPoint(2, 9.32665, 773.684);
+    cutA[10]->SetPoint(3, 22.4355, 689.474);
+    cutA[10]->SetPoint(4, 22.4355, 1594.74);
+    cutA[10]->SetPoint(5, 7.17765, 2900);
+    cutA[10]->SetPoint(6, 0.873925, 3194.74);
     // 12
     cutA[11] = new TCutG("cutA12", 7);
     cutA[11]->SetLineColor(kRed);
-    cutA[11]->SetPoint(0, 0.00977146, 3170.21);
-    cutA[11]->SetPoint(1, 0.963106, 1657.21);
-    cutA[11]->SetPoint(2, 19.0765, 995.272);
-    cutA[11]->SetPoint(3, 26.4648, 1018.91);
-    cutA[11]->SetPoint(4, 22.1748, 1893.62);
-    cutA[11]->SetPoint(5, 5.01478, 3075.65);
-    cutA[11]->SetPoint(6, 0.00977146, 3170.21);
+    cutA[11]->SetPoint(0, 0.873925, 2952.63);
+    cutA[11]->SetPoint(1, 1.08882, 1068.42);
+    cutA[11]->SetPoint(2, 10.9742, 773.684);
+    cutA[11]->SetPoint(3, 24.0831, 731.579);
+    cutA[11]->SetPoint(4, 24.0115, 1531.58);
+    cutA[11]->SetPoint(5, 8.82521, 2742.11);
+    cutA[11]->SetPoint(6, 0.873925, 2952.63);
     // 13
-    cutA[12] = new TCutG("cutA13", 7);
+    cutA[12] = new TCutG("cutA13", 8);
     cutA[12]->SetLineColor(kRed);
-    cutA[12]->SetPoint(0, 0.784356, 3122.93);
-    cutA[12]->SetPoint(1, 1.02269, 1822.7);
-    cutA[12]->SetPoint(2, 16.5144, 995.272);
-    cutA[12]->SetPoint(3, 26.7627, 1042.55);
-    cutA[12]->SetPoint(4, 25.3327, 1822.7);
-    cutA[12]->SetPoint(5, 9.12603, 2768.32);
-    cutA[12]->SetPoint(6, 0.784356, 3122.93);
+    cutA[12]->SetPoint(0, 1.08882, 2973.68);
+    cutA[12]->SetPoint(1, 1.51862, 1215.79);
+    cutA[12]->SetPoint(2, 7.75072, 952.632);
+    cutA[12]->SetPoint(3, 19.4269, 636.842);
+    cutA[12]->SetPoint(4, 26.3037, 805.263);
+    cutA[12]->SetPoint(5, 23.7966, 1626.32);
+    cutA[12]->SetPoint(6, 11.404, 2636.84);
+    cutA[12]->SetPoint(7, 1.08882, 2973.68);
     // 14
     cutA[13] = new TCutG("cutA14", 7);
     cutA[13]->SetLineColor(kRed);
-    cutA[13]->SetPoint(0, 0.843939, 3217.49);
-    cutA[13]->SetPoint(1, 1.79727, 1822.7);
-    cutA[13]->SetPoint(2, 20.6256, 877.069);
-    cutA[13]->SetPoint(3, 26.8223, 1066.19);
-    cutA[13]->SetPoint(4, 22.5323, 1775.41);
-    cutA[13]->SetPoint(5, 9.90061, 2673.76);
-    cutA[13]->SetPoint(6, 0.843939, 3217.49);
+    cutA[13]->SetPoint(0, 1.08882, 3131.58);
+    cutA[13]->SetPoint(1, 1.37536, 1310.53);
+    cutA[13]->SetPoint(2, 9.61318, 889.474);
+    cutA[13]->SetPoint(3, 20.7163, 636.842);
+    cutA[13]->SetPoint(4, 25.2292, 1468.42);
+    cutA[13]->SetPoint(5, 10.2579, 2636.84);
+    cutA[13]->SetPoint(6, 1.08882, 3131.58);
     // 15
-    cutA[14] = new TCutG("cutA15", 5);
+    cutA[14] = new TCutG("cutA15", 6);
     cutA[14]->SetLineColor(kRed);
-    cutA[14]->SetPoint(0, 0.00977146, 3312.06);
-    cutA[14]->SetPoint(1, 0.248105, 2153.66);
-    cutA[14]->SetPoint(2, 14.7865, 1680.85);
-    cutA[14]->SetPoint(3, 15.0248, 2957.45);
-    cutA[14]->SetPoint(4, 0.00977146, 3312.06);
+    cutA[14]->SetPoint(0, 1.01719, 3257.89);
+    cutA[14]->SetPoint(1, 1.80516, 1226.32);
+    cutA[14]->SetPoint(2, 9.61318, 805.263);
+    cutA[14]->SetPoint(3, 13.7679, 1121.05);
+    cutA[14]->SetPoint(4, 8.96848, 3342.11);
+    cutA[14]->SetPoint(5, 1.01719, 3257.89);
     // 16
-    cutA[15] = new TCutG("cutA16", 5);
+    cutA[15] = new TCutG("cutA16", 6);
     cutA[15]->SetLineColor(kRed);
-    cutA[15]->SetPoint(0, 0.0693549, 3335.7);
-    cutA[15]->SetPoint(1, 0.784356, 1917.26);
-    cutA[15]->SetPoint(2, 16.276, 1373.52);
-    cutA[15]->SetPoint(3, 15.561, 2933.81);
-    cutA[15]->SetPoint(4, 0.0693549, 3335.7);
+    cutA[15]->SetPoint(0, 0.945558, 3194.74);
+    cutA[15]->SetPoint(1, 1.30372, 1047.37);
+    cutA[15]->SetPoint(2, 7.17765, 721.053);
+    cutA[15]->SetPoint(3, 17.2063, 794.737);
+    cutA[15]->SetPoint(4, 13.553, 2647.37);
+    cutA[15]->SetPoint(5, 0.945558, 3194.74);
     // 17
     cutA[16] = new TCutG("cutA17", 6);
     cutA[16]->SetLineColor(kRed);
-    cutA[16]->SetPoint(0, 0.367272, 3075.65);
-    cutA[16]->SetPoint(1, 1.08227, 1728.13);
-    cutA[16]->SetPoint(2, 22.294, 1066.19);
-    cutA[16]->SetPoint(3, 22.294, 1751.77);
-    cutA[16]->SetPoint(4, 9.18561, 2933.81);
-    cutA[16]->SetPoint(5, 0.367272, 3075.65);
+    cutA[16]->SetPoint(0, 0.802292, 3121.05);
+    cutA[16]->SetPoint(1, 1.16046, 1047.37);
+    cutA[16]->SetPoint(2, 10.1862, 678.947);
+    cutA[16]->SetPoint(3, 24.3696, 436.842);
+    cutA[16]->SetPoint(4, 13.7679, 2436.84);
+    cutA[16]->SetPoint(5, 0.802292, 3121.05);
     // 101
-    //cutA[24] = new TCutG("cutA101", 7);
-    //cutA[24]->SetLineColor(kRed);
-    //cutA[24]->SetPoint(0, 0.426855, 2981.09);
-    //cutA[24]->SetPoint(1, 1.14186, 2035.46);
-    //cutA[24]->SetPoint(2, 18.5402, 1657.21);
-    //cutA[24]->SetPoint(3, 15.4419, 2484.63);
-    //cutA[24]->SetPoint(4, 0.426855, 2981.09);
+    cutA[24] = new TCutG("cutA101", 6);
+    cutA[24]->SetLineColor(kRed);
+    cutA[24]->SetPoint(0, 0.730659, 2836.84);
+    cutA[24]->SetPoint(1, 0.945558, 1068.42);
+    cutA[24]->SetPoint(2, 12.8367, 710.526);
+    cutA[24]->SetPoint(3, 18.5673, 1384.21);
+    cutA[24]->SetPoint(4, 10.616, 2636.84);
+    cutA[24]->SetPoint(5, 0.730659, 2836.84);
     // 102
     cutA[25] = new TCutG("cutA102", 6);
     cutA[25]->SetLineColor(kRed);
-    cutA[25]->SetPoint(0, 1.16597,3196.27);
-    cutA[25]->SetPoint(1, 1.82827,1337.66);
-    cutA[25]->SetPoint(2, 15.5015,995.272);
-    cutA[25]->SetPoint(3, 24.7965,1042.55);
-    cutA[25]->SetPoint(4, 19.7102,2486.62);
-    cutA[25]->SetPoint(5, 1.16597,3196.27);
+    cutA[25]->SetPoint(0, 0.802292, 3005.26);
+    cutA[25]->SetPoint(1, 1.30372, 794.737);
+    cutA[25]->SetPoint(2, 8.39542, 657.895);
+    cutA[25]->SetPoint(3, 24.4413, 710.526);
+    cutA[25]->SetPoint(4, 15.7736, 2405.26);
+    cutA[25]->SetPoint(5, 0.802292, 3005.26);
     // 103
-    cutA[26] = new TCutG("cutA103", 5);
+    cutA[26] = new TCutG("cutA103", 6);
     cutA[26]->SetLineColor(kRed);
-    cutA[26]->SetPoint(0, 1.24876,3196.27);
-    cutA[26]->SetPoint(1, 0.91761,1641.8);
-    cutA[26]->SetPoint(2, 21.0427,1208.04);
-    cutA[26]->SetPoint(3, 21.1176,2081.1);
-    cutA[26]->SetPoint(4, 1.24876,3196.27);
+    cutA[25]->SetPoint(0, 1.01719, 3236.84);
+    cutA[25]->SetPoint(1, 1.23209, 952.632);
+    cutA[25]->SetPoint(2, 8.53868, 752.632);
+    cutA[25]->SetPoint(3, 24.8711, 594.737);
+    cutA[25]->SetPoint(4, 23.7249, 1563.16);
+    cutA[25]->SetPoint(5, 1.01719, 3236.84);
     // 104
-    cutA[27] = new TCutG("cutA104", 5);
+    cutA[27] = new TCutG("cutA104", 7);
     cutA[27]->SetLineColor(kRed);
-    cutA[27]->SetPoint(0, 0.843939, 3028.37);
-    cutA[27]->SetPoint(1, 1.79727, 1940.9);
-    cutA[27]->SetPoint(2, 23.2473, 1326.24);
-    cutA[27]->SetPoint(3, 21.579, 2130.02);
-    cutA[27]->SetPoint(4, 0.843939, 3028.37);
+    cutA[27]->SetPoint(0, 0.730659, 3152.63);
+    cutA[27]->SetPoint(1, 1.23209, 921.053);
+    cutA[27]->SetPoint(2, 9.04011, 721.053);
+    cutA[27]->SetPoint(3, 24.5845, 668.421);
+    cutA[27]->SetPoint(4, 23.7966, 1531.58);
+    cutA[27]->SetPoint(5, 8.32378, 2784.21);
+    cutA[27]->SetPoint(6, 0.730659, 3152.63);
     // 105
-    //cutA[28] = new TCutG("cutA105", 7);
-    //cutA[28]->SetLineColor(kRed);
-    //cutA[28]->SetPoint(0, 1.80514, 705.979);
-    //cutA[28]->SetPoint(1, 6.79003, 518.725);
-    //cutA[28]->SetPoint(2, 12.8827, 338.042);
-    //cutA[28]->SetPoint(3, 13.0086, 167.214);
-    //cutA[28]->SetPoint(4, 3.1143, 157.359);
-    //cutA[28]->SetPoint(5, 1.37714, 278.909);
-    //cutA[28]->SetPoint(6, 1.80514, 705.979);
+    cutA[28] = new TCutG("cutA105", 5);
+    cutA[28]->SetLineColor(kRed);
+    cutA[28]->SetPoint(0, 1.66189, 2931.58);
+    cutA[28]->SetPoint(1, 2.09169, 889.474);
+    cutA[28]->SetPoint(2, 13.6246, 889.474);
+    cutA[28]->SetPoint(3, 11.9771, 2984.21);
+    cutA[28]->SetPoint(4, 1.66189, 2931.58);
     // 107
     cutA[30] = new TCutG("cutA107", 6);
     cutA[30]->SetLineColor(kRed);
-    cutA[30]->SetPoint(0, 1.0004, 3162.48);
-    cutA[30]->SetPoint(1, 1.66269, 1540.42);
-    cutA[30]->SetPoint(2, 18.9573, 995.272);
-    cutA[30]->SetPoint(3, 22.525, 1776.97);
-    cutA[30]->SetPoint(4, 15.902, 2824.55);
-    cutA[30]->SetPoint(5, 1.0004, 3162.48);
+    cutA[30]->SetPoint(0, 1.01719, 3078.95);
+    cutA[30]->SetPoint(1, 1.51862, 847.368);
+    cutA[30]->SetPoint(2, 9.97135, 678.947);
+    cutA[30]->SetPoint(3, 23.51, 731.579);
+    cutA[30]->SetPoint(4, 20.5014, 2815.79);
+    cutA[30]->SetPoint(5, 1.01719, 3078.95);
     // 108
-    cutA[31] = new TCutG("cutA108", 6);
+    cutA[31] = new TCutG("cutA108", 7);
     cutA[31]->SetLineColor(kRed);
-    cutA[31]->SetPoint(0, 1.08318,3331.44);
-    cutA[31]->SetPoint(1, 1.08318,1641.8);
-    cutA[31]->SetPoint(2, 17.1102,1042.55);
-    cutA[31]->SetPoint(3, 22.5919,1208.04);
-    cutA[31]->SetPoint(4, 14.9914,3094.89);
-    cutA[31]->SetPoint(5, 1.08318,3331.44);
+    cutA[31]->SetPoint(0, 1.16046, 3089.47);
+    cutA[31]->SetPoint(1, 1.30372, 794.737);
+    cutA[31]->SetPoint(2, 6.81948, 594.737);
+    cutA[31]->SetPoint(3, 17.4928, 531.579);
+    cutA[31]->SetPoint(4, 23.3668, 1300);
+    cutA[31]->SetPoint(5, 14.4842, 3089.47);
+    cutA[31]->SetPoint(6, 1.16046, 3089.47);
     // 201
-    cutA[32] = new TCutG("cutA201", 5);
+    cutA[32] = new TCutG("cutA201", 7);
     cutA[32]->SetLineColor(kRed);
-    cutA[32]->SetPoint(0, 1.55894, 2933.81);
-    cutA[32]->SetPoint(1, 1.79727, 1869.98);
-    cutA[32]->SetPoint(2, 18.719, 1609.93);
-    cutA[32]->SetPoint(3, 18.719, 2366.43);
-    cutA[32]->SetPoint(4, 1.55894, 2933.81);
+    cutA[32]->SetPoint(0, 1.08882, 3015.79);
+    cutA[32]->SetPoint(1, 1.37536, 984.211);
+    cutA[32]->SetPoint(2, 9.32665, 731.579);
+    cutA[32]->SetPoint(3, 22.937, 594.737);
+    cutA[32]->SetPoint(4, 23.2951, 1594.74);
+    cutA[32]->SetPoint(5, 11.6905, 2710.53);
+    cutA[32]->SetPoint(6, 1.08882, 3015.79);
     // 202
-    cutA[33] = new TCutG("cutA202", 5);
+    cutA[33] = new TCutG("cutA202", 7);
     cutA[33]->SetLineColor(kRed);
-    cutA[33]->SetPoint(0, 1.24876,3277.37);
-    cutA[33]->SetPoint(1, 1.24876,1689.11);
-    cutA[33]->SetPoint(2, 27.2394,1160.76);
-    cutA[33]->SetPoint(3, 22.1111,2297.38);
-    cutA[33]->SetPoint(4, 1.24876,3277.37);
+    cutA[33]->SetPoint(0, 1.16046, 3005.26);
+    cutA[33]->SetPoint(1, 1.08882, 973.684);
+    cutA[33]->SetPoint(2, 12.4069, 742.105);
+    cutA[33]->SetPoint(3, 24.298, 784.211);
+    cutA[33]->SetPoint(4, 23.51, 1489.47);
+    cutA[33]->SetPoint(5, 10.9742, 2857.89);
+    cutA[33]->SetPoint(6, 1.16046, 3005.26);
     // 203
-    cutA[34] = new TCutG("cutA203", 5);
+    cutA[34] = new TCutG("cutA203", 7);
     cutA[34]->SetLineColor(kRed);
-    cutA[34]->SetPoint(0, 1.16597,3277.37);
-    cutA[34]->SetPoint(1, 0.834823,1756.69);
-    cutA[34]->SetPoint(2, 20.9831,1113.48);
-    cutA[34]->SetPoint(3, 23.3665,1846.34);
-    cutA[34]->SetPoint(4, 1.16597,3277.37);
+    cutA[34]->SetPoint(0, 1.23209, 3036.84);
+    cutA[34]->SetPoint(1, 1.30372, 984.211);
+    cutA[34]->SetPoint(2, 9.46991, 678.947);
+    cutA[34]->SetPoint(3, 24.8711, 647.368);
+    cutA[34]->SetPoint(4, 24.298, 1626.32);
+    cutA[34]->SetPoint(5, 9.18338, 2973.68);
+    cutA[34]->SetPoint(6, 1.23209, 3036.84);
     // 204
-    //cutA[35] = new TCutG("cutA204", 8);
-    //cutA[35]->SetLineColor(kRed);
-    //cutA[35]->SetPoint(0, 1.1002, 669.842);
-    //cutA[35]->SetPoint(1, 1.22608, 357.753);
-    //cutA[35]->SetPoint(2, 7.69637, 177.07);
-    //cutA[35]->SetPoint(3, 13.361, 206.636);
-    //cutA[35]->SetPoint(4, 12.3036, 364.323);
-    //cutA[35]->SetPoint(5, 5.58157, 531.866);
-    //cutA[35]->SetPoint(6, 2.5856, 682.983);
-    //cutA[35]->SetPoint(7, 1.1002, 669.842);
+    cutA[35] = new TCutG("cutA204", 5);
+    cutA[35]->SetLineColor(kRed);
+    cutA[35]->SetPoint(0, 0.873925, 2773.68);
+    cutA[35]->SetPoint(1, 1.23209, 878.947);
+    cutA[35]->SetPoint(2, 17.4212, 868.421);
+    cutA[35]->SetPoint(3, 15.4155, 2836.84);
+    cutA[35]->SetPoint(4, 0.873925, 2773.68);
     // 205
     cutA[36] = new TCutG("cutA205", 6);
     cutA[36]->SetLineColor(kRed);
-    cutA[36]->SetPoint(0, 1.41433,3243.58);
-    cutA[36]->SetPoint(1, 1.74548,1621.52);
-    cutA[36]->SetPoint(2, 18.5402,1066.19);
-    cutA[36]->SetPoint(3, 24.4985,1208.04);
-    cutA[36]->SetPoint(4, 22.9389,2331.17);
-    cutA[36]->SetPoint(5, 1.41433,3243.58);
+    cutA[36]->SetPoint(0, 1.01719, 3152.63);
+    cutA[36]->SetPoint(1, 1.37536, 1005.26);
+    cutA[36]->SetPoint(2, 8.32378, 721.053);
+    cutA[36]->SetPoint(3, 24.1547, 636.842);
+    cutA[36]->SetPoint(4, 18.3524, 3026.32);
+    cutA[36]->SetPoint(5, 1.01719, 3152.63);
     // 206
-    cutA[37] = new TCutG("cutA206", 5);
+    cutA[37] = new TCutG("cutA206", 7);
     cutA[37]->SetLineColor(kRed);
-    cutA[37]->SetPoint(0, 0.669249,3311.17);
-    cutA[37]->SetPoint(1, 1.33154,1317.38);
-    cutA[37]->SetPoint(2, 20.149,1113.48);
-    cutA[37]->SetPoint(3, 19.2135,2162.21);
-    cutA[37]->SetPoint(4, 0.669249,3311.17);
+    cutA[37]->SetPoint(0, 1.23209, 3089.47);
+    cutA[37]->SetPoint(1, 1.30372, 921.053);
+    cutA[37]->SetPoint(2, 7.89398, 657.895);
+    cutA[37]->SetPoint(3, 23.6533, 668.421);
+    cutA[37]->SetPoint(4, 20.4298, 1615.79);
+    cutA[37]->SetPoint(5, 11.1175, 3089.47);
+    cutA[37]->SetPoint(6, 1.23209, 3089.47);
     // 207
-    cutA[38] = new TCutG("cutA207", 5);
+    cutA[38] = new TCutG("cutA207", 6);
     cutA[38]->SetLineColor(kRed);
-    cutA[38]->SetPoint(0, 0.784356, 2697.4);
-    cutA[38]->SetPoint(1, 1.97602, 1609.93);
-    cutA[38]->SetPoint(2, 12.9394, 1515.37);
-    cutA[38]->SetPoint(3, 13.416, 2508.27);
-    cutA[38]->SetPoint(4, 0.784356, 2697.4);
+    cutA[38]->SetPoint(0, 0.873925, 3047.37);
+    cutA[38]->SetPoint(1, 1.30372, 952.632);
+    cutA[38]->SetPoint(2, 4.67049, 689.474);
+    cutA[38]->SetPoint(3, 16.49, 763.158);
+    cutA[38]->SetPoint(4, 12.3352, 2415.79);
+    cutA[38]->SetPoint(5, 0.873925, 3047.37);
     // 208
-    //cutA[39] = new TCutG("cutA208", 7);
-    //cutA[39]->SetLineColor(kRed);
-    //cutA[39]->SetPoint(0, 1.1002, 922.799);
-    //cutA[39]->SetPoint(1, 1.17573, 301.905);
-    //cutA[39]->SetPoint(2, 8.82931, 140.933);
-    //cutA[39]->SetPoint(3, 12.5554, 94.9409);
-    //cutA[39]->SetPoint(4, 11.9763, 341.327);
-    //cutA[39]->SetPoint(5, 3.16465, 827.53);
-    //cutA[39]->SetPoint(6, 1.1002, 922.799);
+    cutA[39] = new TCutG("cutA208", 5);
+    cutA[39]->SetLineColor(kRed);
+    cutA[39]->SetPoint(0, 1.01719, 2826.32);
+    cutA[39]->SetPoint(1, 1.23209, 952.632);
+    cutA[39]->SetPoint(2, 6.60458, 952.632);
+    cutA[39]->SetPoint(3, 12.1203, 2005.26);
+    cutA[39]->SetPoint(4, 1.01719, 2826.32);
 }
 
 void SetCutBG(TCutG **cutBG, TString pora, TString type)
 {
-    if (type=="14OCO2")
+    if (type == "14OCO2")
     {
         if (pora == 'p')
-            for (int i = 0; i < 40; i++) {
-                cutBG[i] = new TCutG(Form("cutBGp%d",i), 4);
+            for (int i = 0; i < 40; i++)
+            {
+                cutBG[i] = new TCutG(Form("cutBGp%d", i), 4);
                 cutBG[i]->SetLineColor(kRed);
                 cutBG[i]->SetPoint(0, 2, 200);
                 cutBG[i]->SetPoint(1, 23, 200);
@@ -815,8 +824,9 @@ void SetCutBG(TCutG **cutBG, TString pora, TString type)
                 cutBG[i]->SetPoint(3, 2, 200);
             }
         else
-            for (int i = 0; i < 40; i++) {
-                cutBG[i] = new TCutG(Form("cutBGa%d",i), 6);
+            for (int i = 0; i < 40; i++)
+            {
+                cutBG[i] = new TCutG(Form("cutBGa%d", i), 6);
                 cutBG[i]->SetLineColor(kRed);
                 cutBG[i]->SetPoint(0, 23, 200);
                 cutBG[i]->SetPoint(1, 40, 200);
@@ -826,11 +836,12 @@ void SetCutBG(TCutG **cutBG, TString pora, TString type)
                 cutBG[i]->SetPoint(5, 23, 200);
             }
     }
-    else if (type=="14NCO2")
+    else if (type == "14NCO2")
     {
         if (pora == 'p')
-            for (int i = 0; i < 40; i++) {
-                cutBG[i] = new TCutG(Form("cutBGp%d",i), 4);
+            for (int i = 0; i < 40; i++)
+            {
+                cutBG[i] = new TCutG(Form("cutBGp%d", i), 4);
                 cutBG[i]->SetLineColor(kRed);
                 cutBG[i]->SetPoint(0, 1, 100);
                 cutBG[i]->SetPoint(1, 18, 100);
@@ -838,8 +849,9 @@ void SetCutBG(TCutG **cutBG, TString pora, TString type)
                 cutBG[i]->SetPoint(3, 1, 100);
             }
         else
-            for (int i = 0; i < 40; i++) {
-                cutBG[i] = new TCutG(Form("cutBGa%d",i), 5);
+            for (int i = 0; i < 40; i++)
+            {
+                cutBG[i] = new TCutG(Form("cutBGa%d", i), 5);
                 cutBG[i]->SetLineColor(kRed);
                 cutBG[i]->SetPoint(0, 20, 100);
                 cutBG[i]->SetPoint(1, 35, 100);
@@ -869,8 +881,8 @@ void ReadCut(TCutG **cutE, TString AorZ, TString type)
     for (int iDet=0; iDet<40; iDet++)
     {
         if (AorZ == 'Z') {
-            if (iDet<10) spare[1] = 80;
-            else         spare[1] = 20;
+            if (iDet<10) spare[1] = 20;
+            else         spare[1] = 10;
         }
 
         cutE[iDet] = new TCutG(Form("cutE%s%d",AorZ.Data(),iDet));
@@ -908,7 +920,7 @@ void ReadCutEcm(TCutG **cutE, TString type)
         cut[Det][Energy][1] = rawcut[1];
     }
 
-    double spare[2] = { 0.1, 0.1 };
+    double spare[2] = { 0.1, 0.5 };
     for (int iDet=0; iDet<40; iDet++)
     {
         cutE[iDet] = new TCutG(Form("cutEcm%d",iDet));

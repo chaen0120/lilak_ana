@@ -38,7 +38,8 @@ void TrackingEff()
     cutCsI->SetPoint(6,11.1772,8.65157);
 
     //auto *file = new TFile("../ana_14Oap.root");
-    auto *file = new TFile("../ana_14OCO2p.root");
+    //auto *file = new TFile("../ana_14OCO2p.root");
+    auto *file = new TFile("../ana/alpha/ana_14Oaa.root");
     auto *tree = (TTree*) file->Get("event");
     auto nEvts = tree->GetEntries();
 
@@ -72,12 +73,14 @@ void TrackingEff()
 
         auto end = (TTEventEnder*) ender->At(0);
         auto SiE = end->GetSiE();
+        auto CsIE = end->GetCsIE();
         if (SiE<SiThres[iDet]) continue;
 
         auto Edet = end->GetEdet();
         auto dEdx = end->GetdEdx();
         //if (!cuts[iDet]->IsInside(Edet,dEdx) && dEdx>100) continue;
-        if (!cutCsI->IsInside(Edet,SiE)) continue;
+        //if (!cutCsI->IsInside(Edet,SiE)) continue;
+        if (Edet<10 && CsIE != 0) continue;
 
         auto nTrack = track->GetEntries();
         //if (det<10) his[0]->Fill(Edet,nTrack);
